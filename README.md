@@ -264,14 +264,14 @@ Project Link: [https://github.com/activecm/passer](https://github.com/activecm/p
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/activecm/passer
+[contributors-shield]: https://img.shields.io/github/contributors/activecm/smudge
 [contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/activecm/passer
+[forks-shield]: https://img.shields.io/github/forks/activecm/smudge
 [forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/activecm/passer
-[stars-url]: https://github.com/activecm/passer/stargazers
-[issues-shield]: https://img.shields.io/github/issues/activecm/passer
+[stars-shield]: https://img.shields.io/github/stars/activecm/smudge
+[stars-url]: https://github.com/activecm/smudge/stargazers
+[issues-shield]: https://img.shields.io/github/issues/activecm/smudge
 [issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/activecm/passer
+[license-shield]: https://img.shields.io/github/license/activecm/smudge
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [product-screenshot]: images/screenshot.png
