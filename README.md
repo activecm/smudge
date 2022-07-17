@@ -13,7 +13,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/activecm/passer">
+  <a href="https://github.com/activecm/smudge">
     <img src="images/smudge.png" alt="Logo" width="600" height="600">
   </a>
 
@@ -22,14 +22,14 @@
   <p align="center">
     project_description
     <br />
-    <a href="https://github.com/activecm/passer"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/activecm/smudge"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/activecm/passer">View Demo</a>
+    <a href="https://github.com/activecm/smudge">View Demo</a>
     ·
-    <a href="https://github.com/activecm/passer/issues">Report Bug</a>
+    <a href="https://github.com/activecm/smudge/issues">Report Bug</a>
     ·
-    <a href="https://github.com/activecm/passer/issues">Request Feature</a>
+    <a href="https://github.com/activecm/smudge/issues">Request Feature</a>
   </p>
 </div>
 
@@ -67,7 +67,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<a href="https://github.com/activecm/passer">
+<a href="https://github.com/activecm/smudge">
     <img src="images/smudge_screenshot.png" alt="Screenshot" width="900" height="300">
 </a>
 
@@ -203,7 +203,7 @@ The definition of a quirk is a `peculiar behavioral habit`. When quirks are obse
 
 This repository includes a tool called "sig_gen.py". This tool can be leveraged to create signatures from known sources. Signatures are created in the same format as p0f and information about the signature format can be found here [p0f](https://github.com/p0f/p0f).
 
-Signatures are stored in a Github Repository maintained by Active COuntermeasures that can be found here [tcp-sig-json](https://github.com/activecm/tcp-sig-json).
+Signatures are stored in a Github Repository maintained by Active Countermeasures that can be found here [tcp-sig-json](https://github.com/activecm/tcp-sig-json).
 Adding a new signature is as easy creating a new pull request.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -245,7 +245,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 David Quartarolo - [@d_quartarolo](https://twitter.com/d_quartarolo) - david@activecountermeasures.com
 
-Project Link: [https://github.com/activecm/passer](https://github.com/activecm/passer)
+Project Link: [https://github.com/activecm/smudge](https://github.com/activecm/smudge)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
