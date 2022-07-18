@@ -1,6 +1,12 @@
-import sqlite3
+"""
+Signature Matching
+"""
 
-class quirk:
+import sqlite3
+from os.path import exists
+import urllib.request
+
+class Quirk:
     """
     Creates quirks - comma-delimited properties and quirks observed in IP or TCP headers.
         If a signature scoped to both IPv4 and IPv6 contains quirks valid
@@ -9,46 +15,51 @@ class quirk:
             of 'df', 'id+', and 'id-' is always matched by any IPv6 packet.
     """
 
-    def __init__(self, p):
+    def __init__(self, packet):
         '''Takes a packet as an argument.'''
-        self.p = p
+        self.packet = packet
 
     def __str__(self):
         return self.qstring
 
     @property
-    def df(self):
-        '''Sets df attribute based on flag - "don't fragment" set (probably PMTUD); ignored for IPv6.'''
-        df = False
-        version = self.p.version
+    def df_flag(self):
+        '''Sets df attribute based on flag -
+            "don't fragment" set (probably PMTUD);
+            ignored for IPv6.
+        '''
+        version = self.packet.version
         if version == 6:
-            return False
+            df_flag = False
         else:
-            if 'DF' in self.p['IP'].flags.names:
-                df = 'df'
-            return df
+            if 'DF' in self.packet['IP'].flags.names:
+                df_flag = 'df'
+        return df_flag
 
     @property
     def id_plus(self):
-        '''Sets id+ attribute based on flag and IPID - DF set but IPID non-zero; ignored for IPv6.'''
-        version = self.p.version
+        '''Sets id+ attribute based on flag and IPID -
+           DF set but IPID non-zero;
+           ignored for IPv6.
+        '''
+        version = self.packet.version
         if version == 6:
-            return False
+            id_plus = False
         else:
             id_plus = False
-            if self.p['IP'].flags =='DF' and self.p['IP'].id != 0:
+            if self.packet['IP'].flags =='DF' and self.packet['IP'].id != 0:
                 id_plus = 'id+'
-            return id_plus
+        return id_plus
 
     @property
     def id_minus(self):
         '''Sets id- attribute based on flag and IPID - DF not set but IPID is zero; ignored for IPv6.'''
-        version = self.p.version
+        version = self.packet.version
         if version == 6:
             return False
         else:
             id_minus = False
-            if self.p['IP'].flags =='DF' and self.p['IP'].id == 0:
+            if self.packet['IP'].flags =='DF' and self.packet['IP'].id == 0:
                 id_minus = 'id-'
             return id_minus
 
@@ -56,33 +67,34 @@ class quirk:
     def ecn(self):
         '''Sets ecn attribute - explicit congestion notification support.'''
         ecn = False
-        if 'E' in self.p['TCP'].flags:
+        if 'E' in self.packet['TCP'].flags:
             ecn = 'ecn'
         return ecn
 
     @property
     def zero_plus(self):
         '''Sets 0+ Attribute -  "must be zero" field not zero; ignored for IPv6.'''
-        version = self.p.version
+        version = self.packet.version
         if version == 6:
-            return False
+            zero_plus = False
         else:
             zero_plus = False
-            if self.p.reserved != 0:
+            if self.packet.reserved != 0:
                 zero_plus = '0+'
-            return zero_plus
+        return zero_plus
 
     @property
     def flow(self):
         '''Sets flow Attribute - non-zero IPv6 flow ID; ignored for IPv4.'''
         #TODO IPv6 support
-        return False
+        flow = False
+        return flow
 
     @property
     def seq_minus(self):
         '''Sets seq- attribute - sequence number is zero.'''
         seq_minus = False
-        if self.p['TCP'].seq == 0:
+        if self.packet['TCP'].seq == 0:
             seq_minus = 'seq-'
         return seq_minus
 
@@ -90,7 +102,7 @@ class quirk:
     def ack_plus(self):
         '''Sets ack+ - ACK number is non-zero, but ACK flag not set.'''
         ack_plus = False
-        if self.p['TCP'].ack != 0:
+        if self.packet['TCP'].ack != 0:
             ack_plus = 'ack+'
         return ack_plus
 
@@ -98,7 +110,7 @@ class quirk:
     def ack_minus(self):
         '''Sets ack- - ACK number is zero, but ACK flag set.'''
         ack_minus = False
-        if self.p['TCP'].ack == 0:
+        if self.packet['TCP'].ack == 0:
             ack_minus = 'ack-'
         return ack_minus
 
@@ -112,7 +124,7 @@ class quirk:
     def urgf_plus(self):
         '''Sets urgf+ attribute - URG flag used.'''
         urgf_plus = False
-        if 'URG' in self.p['IP'].flags:
+        if 'URG' in self.packet['IP'].flags:
             urgf_plus = 'urgf+'
         return urgf_plus
 
@@ -120,7 +132,7 @@ class quirk:
     def pushf_plus(self):
         '''Sets pushf+ attribute - PUSH flag used.'''
         pushf_plus = False
-        if 'PUSH' in self.p['IP'].flags:
+        if 'PUSH' in self.packet['IP'].flags:
             pushf_plus = 'pushf+'
         return pushf_plus
 
@@ -129,10 +141,10 @@ class quirk:
         '''Sets ts1- attribute - own timestamp specified as zero.'''
         ts1_minus = False
         try:
-            ts1 = dict(self.p['TCP'].options)
+            ts1 = dict(self.packet['TCP'].options)
             if ts1['Timestamp'][0] == 0:
                 ts1_minus = 'T0'
-        except:
+        except TypeError:
             pass
         return ts1_minus
 
@@ -141,10 +153,10 @@ class quirk:
         '''Sets ts2+ attribute - non-zero peer timestamp on initial SYN.'''
         ts2_plus = False
         try:
-            ts2 = dict(self.p['TCP'].options)
+            ts2 = dict(self.packet['TCP'].options)
             if ts2['Timestamp'][1] != 0:
                 ts2_plus = 'T'
-        except:
+        except TypeError:
             pass
         return ts2_plus
 
@@ -159,14 +171,14 @@ class quirk:
     def exws(self):
         '''Sets exws attribute - excessive window scaling factor (> 14).'''
         try:
-            exws = dict(self.p['TCP'].options)
-        except:
+            exws = dict(self.packet['TCP'].options)
+        except TypeError:
             exws = False
-        if exws != False:
+        if exws is not False:
             try:
                 exws = exws['WScale'] >= 14
                 return exws
-            except:
+            except TypeError:
                 pass
         else:
             return False
@@ -175,30 +187,48 @@ class quirk:
     @property
     def bad(self):
         '''Sets bad attribute - malformed TCP options.'''
-        bad = isinstance(self.p['TCP'].options, list)
-        return False
+        bad = isinstance(self.packet['TCP'].options, list)
+        bad = False
+        return bad
 
     @property
     def qstring(self):
         '''Looks at all attributes and makes quirks.'''
         quirks = []
-        if self.df: quirks.append(self.df)
-        if self.id_plus: quirks.append(self.id_plus)
-        if self.id_minus: quirks.append(self.id_minus)
-        if self.ecn: quirks.append(self.ecn)
-        if self.zero_plus: quirks.append(self.zero_plus)
-        if self.flow: quirks.append(self.flow)
-        if self.seq_minus: quirks.append(self.seq_minus)
-        if self.ack_plus: quirks.append(self.ack_plus)
-        if self.ack_minus: quirks.append(self.ack_minus)
-        if self.uptr_plus: quirks.append(self.uptr_plus)
-        if self.urgf_plus: quirks.append(self.urgf_plus)
-        if self.pushf_plus: quirks.append(self.pushf_plus)
-        if self.ts1_minus: quirks.append(self.ts1_minus)
-        if self.ts2_plus: quirks.append(self.ts2_plus)
-        if self.opt_plus: quirks.append(self.opt_plus)
-        if self.exws: quirks.append(self.exws)
-        if self.bad: quirks.append(self.bad)
+        if self.df_flag:
+            quirks.append(self.df_flag)
+        if self.id_plus:
+            quirks.append(self.id_plus)
+        if self.id_minus:
+            quirks.append(self.id_minus)
+        if self.ecn:
+            quirks.append(self.ecn)
+        if self.zero_plus:
+            quirks.append(self.zero_plus)
+        if self.flow:
+            quirks.append(self.flow)
+        if self.seq_minus:
+            quirks.append(self.seq_minus)
+        if self.ack_plus:
+            quirks.append(self.ack_plus)
+        if self.ack_minus:
+            quirks.append(self.ack_minus)
+        if self.uptr_plus:
+            quirks.append(self.uptr_plus)
+        if self.urgf_plus:
+            quirks.append(self.urgf_plus)
+        if self.pushf_plus:
+            quirks.append(self.pushf_plus)
+        if self.ts1_minus:
+            quirks.append(self.ts1_minus)
+        if self.ts2_plus:
+            quirks.append(self.ts2_plus)
+        if self.opt_plus:
+            quirks.append(self.opt_plus)
+        if self.exws:
+            quirks.append(self.exws)
+        if self.bad:
+            quirks.append(self.bad)
         quirks = ",".join(quirks)
         return quirks
 
@@ -207,22 +237,26 @@ class signature:
     """
     Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.
     """
-    def __init__(self, p):
-        self.p = p
+    def __init__(self, packet):
+        self.packet = packet
 
-    def process_options(option):
-        if option[0] == 'MSS' and (option[1] == 0 or option[1] == ''):
-            return 'M*'
-        elif option[0] == 'MSS' and option[1] > 1:
-            return 'M' + str(option[1])
-        elif option[0] == 'NOP':
-            return 'N'
-        elif option[0] == 'WScale':
-            return 'W' + str(option[1])
-        elif option[0] == 'SAckOK':
-            return 'S'
-        elif option[0] == 'EOL':
-            return 'E'
+    @staticmethod
+    def process_options(option: list) -> str:
+        '''Static method for processing options.'''
+        option_zero = option[0]
+        option_one = option[1]
+        if option_zero == 'MSS' and (option_one == 0 or option_one == ''):
+            options_output = 'M*'
+        elif option_zero == 'MSS' and option_one > 1:
+            options_output = 'M' + str(option_one)
+        elif option_zero == 'NOP':
+            options_output = 'N'
+        elif option_zero == 'WScale':
+            options_output= 'W' + str(option_one)
+        elif option_zero == 'SAckOK':
+            options_output = 'S'
+        elif option_zero == 'EOL':
+            options_output = 'E'
         else:
             #TODO
             # The p0f docs state:
@@ -235,12 +269,13 @@ class signature:
             # I came up with the following and the output does not look correct. \
             # We went with literally returning '?n'
             # return '?' + str(option[1])
-            return '?n'
+            options_output = '?n'
+        return options_output
 
     @property
     def version(self):
         '''Signature for IPv4 ('4'), IPv6 ('6'), or both ('*').'''
-        version = self.p.version
+        version = self.packet.version
         return str(version)
 
     @property
@@ -298,10 +333,10 @@ class signature:
         If the value is outside that range, you can probably copy it
         literally.
         '''
-        mss = dict(self.p['TCP'].options)
+        mss = dict(self.packet['TCP'].options)
         try:
             return str(mss['MSS'])
-        except:
+        except KeyError:
             return '*'
 
     @property
@@ -313,26 +348,27 @@ class signature:
         cases, and allows notation such as 'mss*4', 'mtu*4', or '%8192'
         to be used. Wilcard ('*') is possible too.
         '''
-        window_size = self.p['TCP'].window
+        window_size = self.packet['TCP'].window
         if self.mss != '*':
-            if (self.p['TCP'].window / int(self.mss)).is_integer():
-                window_size = "mss*" + str(int(self.p['TCP'].window / int(self.mss)))
+            if (self.packet['TCP'].window / int(self.mss)).is_integer():
+                window_size = "mss*" + str(int(self.packet['TCP'].window / int(self.mss)))
         return str(window_size)
 
     @property
     def scale(self):
-       '''
-       Window scaling factor, if specified in TCP options. Fixed value
-       or '*'.
-       NEW SIGNATURES: Copy literally, unless the value varies randomly.
-       Many systems alter between 2 or 3 scaling factors, in which case,
-       it's better to have several 'sig' lines, rather than a wildcard.
-       '''
-       options = dict(self.p['TCP'].options)
-       try:
-           return options['WScale']
-       except:
-           return '*'
+        '''
+        Window scaling factor, if specified in TCP options. Fixed value
+        or '*'.
+        NEW SIGNATURES: Copy literally, unless the value varies randomly.
+        Many systems alter between 2 or 3 scaling factors, in which case,
+        it's better to have several 'sig' lines, rather than a wildcard.
+        '''
+        options = dict(self.packet['TCP'].options)
+        try:
+            scale = options['WScale']
+        except TypeError:
+            scale = '*'
+        return scale
 
     @property
     def olayout(self):
@@ -341,11 +377,11 @@ class signature:
         is one of the most valuable TCP fingerprinting signals. Supported
         values.
         '''
-        if len(self.p['TCP'].options) == 0:
+        if len(self.packet['TCP'].options) == 0:
             return '*'
         else:
             loo = []
-            for i in self.p['TCP'].options:
+            for i in self.packet['TCP'].options:
                 loo.append(signature.process_options(i))
             return ','.join(map(str, loo))
 
@@ -355,7 +391,7 @@ class signature:
         Comma-delimited properties and quirks observed in IP or TCP
         headers.
         '''
-        q = quirk(self.p)
+        q = quirk(self.packet)
         return str(q)
 
     @property
@@ -365,7 +401,7 @@ class signature:
         '*' for any. The packets we fingerprint right now normally have
         no payloads, but some corner cases exist.
         '''
-        pclass = len(self.p['TCP'].payload)
+        pclass = len(self.packet['TCP'].payload)
         if pclass != 0:
             pclass = '+'
         return str(pclass)
@@ -386,9 +422,10 @@ class matching():
     def create_con():
         '''Create Database Connection'''
         return sqlite3.connect('signature.db')
-
-    # Select 100%
+   
+    @staticmethod
     def sig_match_one(conn, so):
+        '''Select 100%'''
         cur = conn.cursor()
         cur.execute(
             "SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=? AND mss=? AND wsize=? AND scale=? AND olayout=? AND quirks=? AND pclass=?",
@@ -400,21 +437,9 @@ class matching():
         else:
             return signature_matches
 
-    # Select 100%
-    def sig_match_one(conn, so):
-        cur = conn.cursor()
-        cur.execute(
-            "SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=? AND mss=? AND wsize=? AND scale=? AND olayout=? AND quirks=? AND pclass=?",
-            [so.version, so.ittl, so.olen, so.mss, so.window_size, so.scale, so.olayout, so.quirk, so.pclass]
-            )
-        signature_matches = cur.fetchall()
-        if len(signature_matches) == 0:
-            return None
-        else:
-            return signature_matches
-
-    # Select 80%
+    @staticmethod
     def sig_match_eighty(conn, so):
+        '''Select 80%'''
         cur = conn.cursor()
         cur.execute(
             "SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=? AND mss=? AND wsize=? AND scale=? AND olayout=? AND pclass=?",
@@ -426,8 +451,9 @@ class matching():
         else:
             return signature_matches
 
-    # Select 60%
+    @staticmethod
     def sig_match_sixty(conn, so):
+        '''Select 60%'''
         cur = conn.cursor()
         cur.execute(
             "SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=? AND wsize=? AND scale=? AND olayout=?",
@@ -439,8 +465,9 @@ class matching():
         else:
             return signature_matches
 
-    # Select 40%
+    @staticmethod
     def sig_match_fourty(conn, so):
+        '''Select 40%'''
         cur = conn.cursor()
         cur.execute(
             "SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=? AND olayout=?",
@@ -452,8 +479,9 @@ class matching():
         else:
             return signature_matches
 
-    # Select 20%
+    @staticmethod
     def sig_match_twenty(conn, so):
+        '''Select 20%'''
         cur = conn.cursor()
         cur.execute(
             "SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=?",
@@ -466,7 +494,9 @@ class matching():
             return signature_matches
 
 
+    @staticmethod
     def match(so):
+        '''Match.'''
         conn = matching.create_con()
         results = ''
         one_hundred = matching.sig_match_one(conn, so)
@@ -500,7 +530,10 @@ class query_object():
     Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.
     """
 
-    def __init__(self, acid, platform, tcp_flag, comments, version, ittl, olen, mss, wsize, scale, olayout, quirks, pclass):
+    def __init__(self, 
+                    acid, platform, tcp_flag, comments, version, ittl,
+                     olen, mss, wsize, scale, olayout, quirks, pclass
+                ):
         self.sig_acid = acid
         self.platform = platform
         self.sig_tcp_flag = tcp_flag
@@ -524,17 +557,126 @@ class query_object():
         return self.qstring
 
 
+class passive_data:
+    """
+    A class filled with static methods that interacts with the sqlite database.
+    """
+
+    @staticmethod
+    def test_github_con():
+        '''Tests Internet Connection to Github.com'''
+        test_result = urllib.request.urlopen("https://www.github.com").getcode()
+        if test_result == 200:
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def create_con():
+        '''Create Database Connection'''
+        return sqlite3.connect('signature.db')
 
 
-
-
-
-'''
-try:
-            ts2 = dict(self.p['TCP'].options)
-            if ts2['Timestamp'][1] != 0:
-                ts2_plus = 'T'
-        except:
+    @staticmethod
+    def setup_db():
+        '''Create Sqlite3 DB with all required tables'''
+        if exists('signature.db'):
             pass
+        else:
+            with open('signature.db', 'x') as fp:
+                pass
+            conn = sqlite3.connect('signature.db')
+            # Create Signatures Table
+            conn.execute('''CREATE TABLE "signatures" (
+	        "id"	INTEGER NOT NULL UNIQUE,
+	        "acid"	INTEGER UNIQUE,
+	        "platform"  TEXT,
+            "tcp_flag"	TEXT,
+	        "version"	TEXT NOT NULL,
+	        "ittl"	TEXT,
+	        "olen"	TEXT,
+	        "mss"	TEXT,
+	        "wsize"	TEXT,
+	        "scale"	TEXT,
+	        "olayout"	TEXT,
+	        "quirks"	TEXT,
+	        "pclass"	TEXT,
+	        "comments"	TEXT,
+	        PRIMARY KEY("id" AUTOINCREMENT)
+            );''')
+            conn.close()
+        return True
 
-'''
+    @staticmethod
+    def signature_insert(conn, sig_obj):
+        '''Insert Statement for the Signature Table.'''
+        entry = conn.execute('SELECT id FROM signatures WHERE (acid=?)', (sig_obj.sig_acid,))
+        entry = entry.fetchone()
+        if entry is None:
+            conn.execute("insert into signatures (acid, platform, tcp_flag, version, ittl, olen, mss, wsize, scale, olayout, quirks, pclass, comments) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (sig_obj.sig_acid, sig_obj.platform, sig_obj.sig_tcp_flag, sig_obj.version, sig_obj.ittl, sig_obj.olen, sig_obj.mss, sig_obj.wsize, sig_obj.scale, sig_obj.olayout, sig_obj.quirks, sig_obj.pclass, sig_obj.sig_comments))
+            conn.commit()
+        return True
+
+
+
+class pull_data:
+    """
+    A class that contains a method that:
+        * Loads a json file from github into memory.
+        * Dumps the json into the sqlite database.
+
+    The use of class methods is used so that class variables can be overrided for testing.
+    ...
+
+    Class Variables
+    ----------
+    url : str
+        URL of raw json file that contains TCP Signatures.
+    """
+
+    import json
+    import urllib.request
+    url = "https://raw.githubusercontent.com/activecm/tcp-sig-json/testing-data/tcp-sig.json"
+
+    @classmethod
+    def import_data(cls):
+        """Imports TCP Signatures from raw JSON file hosted on Github."""
+        with cls.urllib.request.urlopen(cls.url) as f:
+            data = cls.json.load(f)
+            return data
+
+    @classmethod
+    def import_local_data(cls, json_file):
+        """Imports TCP Signatures from local raw JSON file."""
+        with open(json_file) as f:
+            data = cls.json.load(f)
+            return data
+
+class tcp_sig:
+    """
+    Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.
+    """
+
+    def __init__(self, tcp_sig_obj):
+        self.sig_acid = tcp_sig_obj['acid']
+        self.platform = tcp_sig_obj['platform']
+        self.sig_tcp_flag = tcp_sig_obj['tcp_flag']
+        self.sig_comments = tcp_sig_obj['comments']
+        self.signature = dict(zip(['version', 'ittl', 'olen', 'mss', 'wsize', 'scale', 'olayout', 'quirks', 'pclass'], tcp_sig_obj['tcp_sig'].split(':')))
+        self.version = self.signature['version']
+        self.ittl = self.signature['ittl']
+        self.olen = self.signature['olen']
+        self.mss = self.signature['mss']
+        self.wsize = self.signature['wsize']
+        self.scale = self.signature['scale']
+        self.olayout = self.signature['olayout']
+        self.quirks = self.signature['quirks']
+        self.pclass = self.signature['pclass']
+
+    @property
+    def qstring(self):
+        qstring = "{ver}:{ittl}:{olen}:{mss}:{wsize}:{scale}:{olayout}:{quirk}:{pclass}".format(ver=self.version, ittl=self.ittl, olen=self.olen, mss=self.mss, wsize=self.wsize, scale=self.scale, olayout=self.olayout, quirk=self.quirks, pclass=self.pclass)
+        return qstring
+
+    def __str__(self):
+        return self.qstring

@@ -227,6 +227,9 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+This project uses pylint. Github actions are set up to run the a linter on the code at merge. Please manually run the linter to catch any issues before pull request is created.
+
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 

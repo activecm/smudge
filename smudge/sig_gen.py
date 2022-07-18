@@ -21,7 +21,7 @@
 
 #======== Imports ========
 import argparse
-from signature_matching import signature
+from smudge.utils import signature
 from scapy.all import *
 
 pn = 0
