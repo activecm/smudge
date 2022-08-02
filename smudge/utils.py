@@ -5,6 +5,7 @@ Signature Matching
 import sqlite3
 from os.path import exists
 import urllib.request
+import json
 
 class Quirk:
     """
@@ -53,15 +54,18 @@ class Quirk:
 
     @property
     def id_minus(self):
-        '''Sets id- attribute based on flag and IPID - DF not set but IPID is zero; ignored for IPv6.'''
+        '''
+        Sets id- attribute based on flag and IPID -
+        DF not set but IPID is zero; ignored for IPv6.
+        '''
         version = self.packet.version
         if version == 6:
-            return False
+            id_minus = False
         else:
             id_minus = False
             if self.packet['IP'].flags =='DF' and self.packet['IP'].id == 0:
                 id_minus = 'id-'
-            return id_minus
+        return id_minus
 
     @property
     def ecn(self):
@@ -177,11 +181,9 @@ class Quirk:
         if exws is not False:
             try:
                 exws = exws['WScale'] >= 14
-                return exws
             except TypeError:
-                pass
-        else:
-            return False
+                exws = False
+        return exws
 
     #TODO
     @property
@@ -194,46 +196,20 @@ class Quirk:
     @property
     def qstring(self):
         '''Looks at all attributes and makes quirks.'''
-        quirks = []
-        if self.df_flag:
-            quirks.append(self.df_flag)
-        if self.id_plus:
-            quirks.append(self.id_plus)
-        if self.id_minus:
-            quirks.append(self.id_minus)
-        if self.ecn:
-            quirks.append(self.ecn)
-        if self.zero_plus:
-            quirks.append(self.zero_plus)
-        if self.flow:
-            quirks.append(self.flow)
-        if self.seq_minus:
-            quirks.append(self.seq_minus)
-        if self.ack_plus:
-            quirks.append(self.ack_plus)
-        if self.ack_minus:
-            quirks.append(self.ack_minus)
-        if self.uptr_plus:
-            quirks.append(self.uptr_plus)
-        if self.urgf_plus:
-            quirks.append(self.urgf_plus)
-        if self.pushf_plus:
-            quirks.append(self.pushf_plus)
-        if self.ts1_minus:
-            quirks.append(self.ts1_minus)
-        if self.ts2_plus:
-            quirks.append(self.ts2_plus)
-        if self.opt_plus:
-            quirks.append(self.opt_plus)
-        if self.exws:
-            quirks.append(self.exws)
-        if self.bad:
-            quirks.append(self.bad)
+        items = [
+                self.df_flag, self.id_plus, self.id_minus,
+                self.ecn, self.zero_plus, self.flow,
+                self.seq_minus, self.ack_plus, self.ack_minus,
+                self.uptr_plus, self.pushf_plus, self.ts1_minus,
+                self.ts2_plus, self.opt_plus, self.exws,
+                self.bad
+                ]
+        quirks = [item for item in items if item is not False]
         quirks = ",".join(quirks)
         return quirks
 
 
-class signature:
+class Signature:
     """
     Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.
     """
@@ -258,7 +234,7 @@ class signature:
         elif option_zero == 'EOL':
             options_output = 'E'
         else:
-            #TODO
+            # TODO
             # The p0f docs state:
             #  ?n     - unknown option ID n
             # What does that even mean?
@@ -378,12 +354,13 @@ class signature:
         values.
         '''
         if len(self.packet['TCP'].options) == 0:
-            return '*'
+            olayout = '*'
         else:
             loo = []
             for i in self.packet['TCP'].options:
-                loo.append(signature.process_options(i))
-            return ','.join(map(str, loo))
+                loo.append(Signature.process_options(i))
+            olayout = ','.join(map(str, loo))
+        return olayout
 
     @property
     def quirk(self):
@@ -391,8 +368,8 @@ class signature:
         Comma-delimited properties and quirks observed in IP or TCP
         headers.
         '''
-        q = quirk(self.packet)
-        return str(q)
+        Quirks = Quirk(self.packet)
+        return str(Quirks)
 
     @property
     def pclass(self):
@@ -408,7 +385,11 @@ class signature:
 
     @property
     def qstring(self):
-        qstring = "{ver}:{ittl}:{olen}:{mss}:{wsize}:{scale}:{olayout}:{quirk}:{pclass}".format(ver=self.version, ittl=self.ittl, olen=self.olen, mss=self.mss, wsize=self.window_size, scale=self.scale, olayout=self.olayout, quirk=self.quirk, pclass=self.pclass)
+        '''Create Query String'''
+        qstring = f"{self.version}:"\
+        + f"{self.ittl}:{self.olen}:{self.mss}:"\
+        + f"{self.window_size}:{self.scale}:"\
+        + f"{self.olayout}:{self.quirk}:{self.pclass}"
         return qstring
 
     def __str__(self):
@@ -416,54 +397,60 @@ class signature:
 
 
 
-class matching():
+class Matching():
+    """This class be matching."""
 
     @staticmethod
     def create_con():
         '''Create Database Connection'''
         return sqlite3.connect('signature.db')
-   
+
     @staticmethod
-    def sig_match_one(conn, so):
+    def sig_match_one(conn, sig_obj):
         '''Select 100%'''
         cur = conn.cursor()
         cur.execute(
-            "SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=? AND mss=? AND wsize=? AND scale=? AND olayout=? AND quirks=? AND pclass=?",
-            [so.version, so.ittl, so.olen, so.mss, so.window_size, so.scale, so.olayout, so.quirk, so.pclass]
+            "SELECT * FROM signatures WHERE version=? AND ittl=?\
+            AND olen=? AND mss=? AND wsize=? AND scale=?\
+            AND olayout=? AND quirks=? AND pclass=?",
+            [sig_obj.version, sig_obj.ittl, sig_obj.olen, sig_obj.mss,\
+            sig_obj.window_size,sig_obj.scale, sig_obj.olayout,\
+            sig_obj.quirk, sig_obj.pclass]
             )
         signature_matches = cur.fetchall()
         if len(signature_matches) == 0:
-            return None
-        else:
-            return signature_matches
+            signature_matches = None
+        return signature_matches
 
     @staticmethod
     def sig_match_eighty(conn, so):
         '''Select 80%'''
         cur = conn.cursor()
         cur.execute(
-            "SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=? AND mss=? AND wsize=? AND scale=? AND olayout=? AND pclass=?",
+            "SELECT * FROM signatures WHERE version=?\
+            AND ittl=? AND olen=? AND mss=? AND wsize=?\
+            AND scale=? AND olayout=? AND pclass=?",
             [so.version, so.ittl, so.olen, so.mss, so.window_size, so.scale, so.olayout, so.pclass]
             )
         signature_matches = cur.fetchall()
         if len(signature_matches) == 0:
-            return None
-        else:
-            return signature_matches
+            signature_matches = None
+        return signature_matches
 
     @staticmethod
     def sig_match_sixty(conn, so):
         '''Select 60%'''
         cur = conn.cursor()
         cur.execute(
-            "SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=? AND wsize=? AND scale=? AND olayout=?",
+            "SELECT * FROM signatures WHERE version=?\
+            AND ittl=? AND olen=? AND wsize=?\
+            AND scale=? AND olayout=?",
             [so.version, so.ittl, so.olen, so.window_size, so.scale, so.olayout]
             )
         signature_matches = cur.fetchall()
         if len(signature_matches) == 0:
-            return None
-        else:
-            return signature_matches
+            signature_matches = None
+        return signature_matches
 
     @staticmethod
     def sig_match_fourty(conn, so):
@@ -475,9 +462,8 @@ class matching():
             )
         signature_matches = cur.fetchall()
         if len(signature_matches) == 0:
-            return None
-        else:
-            return signature_matches
+            signature_matches = None
+        return signature_matches
 
     @staticmethod
     def sig_match_twenty(conn, so):
@@ -489,48 +475,47 @@ class matching():
             )
         signature_matches = cur.fetchall()
         if len(signature_matches) == 0:
-            return None
-        else:
-            return signature_matches
+            signature_matches = None
+        return signature_matches
 
 
     @staticmethod
-    def match(so):
+    def match(signature_obj):
         '''Match.'''
-        conn = matching.create_con()
+        conn = Matching.create_con()
         results = ''
-        one_hundred = matching.sig_match_one(conn, so)
+        one_hundred = Matching.sig_match_one(conn, signature_obj)
         if one_hundred:
             results = ('100%', one_hundred)
         if results == '':
-            eighty = matching.sig_match_eighty(conn, so)
+            eighty = Matching.sig_match_eighty(conn, signature_obj)
             if eighty:
                 results = ('80%', eighty)
         if results == '':
-            sixty = matching.sig_match_sixty(conn, so)
+            sixty = Matching.sig_match_sixty(conn, signature_obj)
             if sixty:
                 results = ('60%', sixty)
         if results == '':
-            fourty = matching.sig_match_fourty(conn, so)
+            fourty = Matching.sig_match_fourty(conn, signature_obj)
             if fourty:
                 results = ('40%', fourty)
         if results == '':
-            twenty = matching.sig_match_twenty(conn, so)
+            twenty = Matching.sig_match_twenty(conn, signature_obj)
             if twenty:
                 results = ('20%', twenty)
         if results == '':
-            results = ('0%', so)
+            results = ('0%', signature_obj)
         conn.close()
         return results
 
 
 
-class query_object():
+class QueryObject():
     """
     Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.
     """
 
-    def __init__(self, 
+    def __init__(self,
                     acid, platform, tcp_flag, comments, version, ittl,
                      olen, mss, wsize, scale, olayout, quirks, pclass
                 ):
@@ -550,14 +535,17 @@ class query_object():
 
     @property
     def qstring(self):
-        qstring = "{ver}:{ittl}:{olen}:{mss}:{wsize}:{scale}:{olayout}:{quirk}:{pclass}".format(ver=self.version, ittl=self.ittl, olen=self.olen, mss=self.mss, wsize=self.wsize, scale=self.scale, olayout=self.olayout, quirk=self.quirks, pclass=self.pclass)
+        '''Query String.'''
+        qstring = f"{self.version}:{self.ittl}:{self.olen}\
+        :{self.mss}:{self.wsize}:{self.scale}\
+        :{self.olayout}:{self.quirks}:{self.pclass}"
         return qstring
 
     def __str__(self):
         return self.qstring
 
 
-class passive_data:
+class PassiveData:
     """
     A class filled with static methods that interacts with the sqlite database.
     """
@@ -566,10 +554,8 @@ class passive_data:
     def test_github_con():
         '''Tests Internet Connection to Github.com'''
         test_result = urllib.request.urlopen("https://www.github.com").getcode()
-        if test_result == 200:
-            return True
-        else:
-            return False
+        return bool(test_result == 200)
+
 
     @staticmethod
     def create_con():
@@ -583,7 +569,7 @@ class passive_data:
         if exists('signature.db'):
             pass
         else:
-            with open('signature.db', 'x') as fp:
+            with open('signature.db', 'x') as f_p:
                 pass
             conn = sqlite3.connect('signature.db')
             # Create Signatures Table
@@ -613,13 +599,20 @@ class passive_data:
         entry = conn.execute('SELECT id FROM signatures WHERE (acid=?)', (sig_obj.sig_acid,))
         entry = entry.fetchone()
         if entry is None:
-            conn.execute("insert into signatures (acid, platform, tcp_flag, version, ittl, olen, mss, wsize, scale, olayout, quirks, pclass, comments) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (sig_obj.sig_acid, sig_obj.platform, sig_obj.sig_tcp_flag, sig_obj.version, sig_obj.ittl, sig_obj.olen, sig_obj.mss, sig_obj.wsize, sig_obj.scale, sig_obj.olayout, sig_obj.quirks, sig_obj.pclass, sig_obj.sig_comments))
+            conn.execute("insert into signatures\
+            (acid, platform, tcp_flag, version,\
+            ittl, olen, mss, wsize,\
+            scale, olayout, quirks, pclass,\
+            comments) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (sig_obj.sig_acid, sig_obj.platform, sig_obj.sig_tcp_flag, sig_obj.version,\
+            sig_obj.ittl, sig_obj.olen, sig_obj.mss, sig_obj.wsize, sig_obj.scale,\
+            sig_obj.olayout, sig_obj.quirks, sig_obj.pclass, sig_obj.sig_comments))
             conn.commit()
         return True
 
 
 
-class pull_data:
+class PullData:
     """
     A class that contains a method that:
         * Loads a json file from github into memory.
@@ -634,25 +627,24 @@ class pull_data:
         URL of raw json file that contains TCP Signatures.
     """
 
-    import json
-    import urllib.request
+
     url = "https://raw.githubusercontent.com/activecm/tcp-sig-json/testing-data/tcp-sig.json"
 
     @classmethod
     def import_data(cls):
         """Imports TCP Signatures from raw JSON file hosted on Github."""
-        with cls.urllib.request.urlopen(cls.url) as f:
-            data = cls.json.load(f)
+        with urllib.request.urlopen(cls.url) as f_p:
+            data = json.load(f_p)
             return data
 
     @classmethod
     def import_local_data(cls, json_file):
         """Imports TCP Signatures from local raw JSON file."""
-        with open(json_file) as f:
-            data = cls.json.load(f)
+        with open(json_file) as f_p:
+            data = json.load(f_p)
             return data
 
-class tcp_sig:
+class TcpSig:
     """
     Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.
     """
@@ -662,7 +654,12 @@ class tcp_sig:
         self.platform = tcp_sig_obj['platform']
         self.sig_tcp_flag = tcp_sig_obj['tcp_flag']
         self.sig_comments = tcp_sig_obj['comments']
-        self.signature = dict(zip(['version', 'ittl', 'olen', 'mss', 'wsize', 'scale', 'olayout', 'quirks', 'pclass'], tcp_sig_obj['tcp_sig'].split(':')))
+        self.signature = dict(
+            zip(
+                ['version', 'ittl', 'olen', 'mss', 'wsize', 'scale', 'olayout', 'quirks', 'pclass'],
+                tcp_sig_obj['tcp_sig'].split(':')
+                )
+            )
         self.version = self.signature['version']
         self.ittl = self.signature['ittl']
         self.olen = self.signature['olen']
@@ -675,7 +672,11 @@ class tcp_sig:
 
     @property
     def qstring(self):
-        qstring = "{ver}:{ittl}:{olen}:{mss}:{wsize}:{scale}:{olayout}:{quirk}:{pclass}".format(ver=self.version, ittl=self.ittl, olen=self.olen, mss=self.mss, wsize=self.wsize, scale=self.scale, olayout=self.olayout, quirk=self.quirks, pclass=self.pclass)
+        """QString."""
+        qstring = f"{self.version}:\
+            {self.ittl}:{self.olen}:{self.mss}:\
+            {self.wsize}:{self.scale}:{self.olayout}:\
+            {self.quirks}:{self.pclass}"
         return qstring
 
     def __str__(self):
