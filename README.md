@@ -227,6 +227,9 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+This project uses pylint. Github actions are set up to run the a linter on the code at merge. Please manually run the linter to catch any issues before pull request is created.
+
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -265,13 +268,13 @@ Project Link: [https://github.com/activecm/smudge](https://github.com/activecm/s
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/activecm/smudge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
+[contributors-url]: https://github.com/activecm/smudge/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/activecm/smudge
-[forks-url]: https://github.com/github_username/repo_name/network/members
+[forks-url]: https://github.com/activecm/smudge/network/members
 [stars-shield]: https://img.shields.io/github/stars/activecm/smudge
 [stars-url]: https://github.com/activecm/smudge/stargazers
 [issues-shield]: https://img.shields.io/github/issues/activecm/smudge
-[issues-url]: https://github.com/github_username/repo_name/issues
+[issues-url]: https://github.com/activecm/smudge/issues
 [license-shield]: https://img.shields.io/github/license/activecm/smudge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
+[license-url]: https://github.com/activecm/smudge/blob/master/LICENSE.txt
 [product-screenshot]: images/screenshot.png
