@@ -56,6 +56,7 @@
     <li><a href="#signatures">Signatures</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
+    <li><a href="#Code of Conduct">Code of Conduct</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#logo">Logo</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -241,7 +242,12 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+<!-- Code of Conduct -->
+## Code of Conduct
 
+The SMUDGE project has adopted Contributor Covenant's code of conduct. See `CODE_OF_CONDUCT.md` for more information.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- CONTACT -->
 ## Contact
