@@ -221,7 +221,7 @@ class Signature:
         '''Static method for processing options.'''
         option_zero = option[0]
         option_one = option[1]
-        if option_zero == 'MSS' and (option_one == 0 or option_one == ''):
+        if option_zero == 'MSS' and option_one in [0, '']:
             options_output = 'M*'
         elif option_zero == 'MSS' and option_one > 1:
             options_output = 'M' + str(option_one)
@@ -368,8 +368,8 @@ class Signature:
         Comma-delimited properties and quirks observed in IP or TCP
         headers.
         '''
-        Quirks = Quirk(self.packet)
-        return str(Quirks)
+        quirks = Quirk(self.packet)
+        return str(quirks)
 
     @property
     def pclass(self):
@@ -423,29 +423,46 @@ class Matching():
         return signature_matches
 
     @staticmethod
-    def sig_match_eighty(conn, so):
+    def sig_match_eighty(conn, signature_options):
         '''Select 80%'''
         cur = conn.cursor()
         cur.execute(
             "SELECT * FROM signatures WHERE version=?\
             AND ittl=? AND olen=? AND mss=? AND wsize=?\
             AND scale=? AND olayout=? AND pclass=?",
-            [so.version, so.ittl, so.olen, so.mss, so.window_size, so.scale, so.olayout, so.pclass]
+            [
+                signature_options.version,
+                signature_options.ittl,
+                signature_options.olen,
+                signature_options.mss,
+                signature_options.window_size,
+                signature_options.scale,
+                signature_options.olayout,
+                signature_options.pclass
+                ]
             )
         signature_matches = cur.fetchall()
         if len(signature_matches) == 0:
             signature_matches = None
         return signature_matches
 
+    # didn't know what you meant with 'so'
     @staticmethod
-    def sig_match_sixty(conn, so):
+    def sig_match_sixty(conn, signature_options):
         '''Select 60%'''
         cur = conn.cursor()
         cur.execute(
             "SELECT * FROM signatures WHERE version=?\
             AND ittl=? AND olen=? AND wsize=?\
             AND scale=? AND olayout=?",
-            [so.version, so.ittl, so.olen, so.window_size, so.scale, so.olayout]
+                [
+                signature_options.version,
+                signature_options.ittl,
+                signature_options.olen,
+                signature_options.window_size,
+                signature_options.scale,
+                signature_options.olayout
+                ]
             )
         signature_matches = cur.fetchall()
         if len(signature_matches) == 0:
@@ -453,12 +470,16 @@ class Matching():
         return signature_matches
 
     @staticmethod
-    def sig_match_fourty(conn, so):
+    def sig_match_fourty(conn, signature_options):
         '''Select 40%'''
         cur = conn.cursor()
         cur.execute(
             "SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=? AND olayout=?",
-            [so.version, so.ittl, so.olen, so.olayout]
+            [
+                signature_options.version,
+                signature_options.ittl,
+                signature_options.olen,
+                signature_options.olayout]
             )
         signature_matches = cur.fetchall()
         if len(signature_matches) == 0:
@@ -466,12 +487,12 @@ class Matching():
         return signature_matches
 
     @staticmethod
-    def sig_match_twenty(conn, so):
+    def sig_match_twenty(conn, signature_options):
         '''Select 20%'''
         cur = conn.cursor()
         cur.execute(
             "SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=?",
-            [so.version, so.ittl, so.olen]
+            [signature_options.version, signature_options.ittl, signature_options.olen]
             )
         signature_matches = cur.fetchall()
         if len(signature_matches) == 0:
@@ -553,8 +574,8 @@ class PassiveData:
     @staticmethod
     def test_github_con():
         '''Tests Internet Connection to Github.com'''
-        test_result = urllib.request.urlopen("https://www.github.com").getcode()
-        return bool(test_result == 200)
+        with urllib.request.urlopen("https://www.github.com").getcode() as test_result:
+            return bool(test_result == 200)
 
 
     @staticmethod
@@ -569,7 +590,7 @@ class PassiveData:
         if exists('signature.db'):
             pass
         else:
-            with open('signature.db', 'x') as f_p:
+            with open('signature.db', 'x', encoding='utf-8') as _:
                 pass
             conn = sqlite3.connect('signature.db')
             # Create Signatures Table
@@ -640,7 +661,7 @@ class PullData:
     @classmethod
     def import_local_data(cls, json_file):
         """Imports TCP Signatures from local raw JSON file."""
-        with open(json_file) as f_p:
+        with open(json_file, encoding='utf-8') as f_p:
             data = json.load(f_p)
             return data
 
