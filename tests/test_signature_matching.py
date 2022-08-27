@@ -3,9 +3,6 @@ import unittest
 from scapy.all import sniff
 from smudge import Signature
 
-from smudge import Signature
-
-
 class SignatureMatchingTestcase(unittest.TestCase):
     "Test class for Signature class"
     def test_signature_1(self):
