@@ -21,50 +21,67 @@
 
 #======== Imports ========
 import argparse
-from smudge.utils import signature
-from scapy.all import *
+import scapy.all as scapy
+from smudge.utils import Signature
 
-pn = 0
-
-def tcp_sig_plus(p):
-    """TCP SIG Plus Exception Handling"""   
-    global pn
-    pn += 1 
-    try:
-        sig = signature(p)
-        print("Packet: " + str(pn))
-        print(p)
-        print("Signature for Packet: " + str(pn))
-        print(sig)
-        print("******************************************")
-        #pn += 1
-    except:
-        pass
+def tcp_sig_plus(packet):
+    """TCP SIG Plus Exception Handling"""
+    if not tcp_sig_plus.pn:
+        tcp_sig_plus.pn = 0
+    tcp_sig_plus.pn += 1
+    sig = Signature(packet)
+    print("Packet: " + str(tcp_sig_plus.pn))
+    print(packet)
+    print("Signature for Packet: " + str(tcp_sig_plus.pn))
+    print(sig)
+    print("******************************************")
+    #pn += 1
 
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Signature Generator')
-    parser.add_argument('-i', '--interface', help='Interface(s) from which to read packets (default is all interfaces)', required=False, default=[], nargs='*')
-    parser.add_argument('-r', '--read', help='Pcap file(s) from which to read packets', required=False, default=[], nargs='*')
-    parser.add_argument('-l', '--log', help='File to which to write output csv lines', required=False, default=None)
-    parser.add_argument('-b', '--bpf', help='BPF to restrict which packets are processed', required=False, default='')
+    parser.add_argument('-i', '--interface',
+        help='Interface(s) from which to read packets (default is all interfaces)',
+        required=False, default=[], nargs='*')
+
+    parser.add_argument('-r', '--read',
+        help='Pcap file(s) from which to read packets',
+        required=False, default=[], nargs='*')
+
+    parser.add_argument('-l', '--log',
+        help='File to which to write output csv lines',
+        required=False, default=None)
+
+    parser.add_argument('-b', '--bpf',
+        help='BPF to restrict which packets are processed',
+        required=False, default='')
+
     (parsed, unparsed) = parser.parse_known_args()
     cl_args = vars(parsed)
     InterfaceName = cl_args['interface']
 
     if InterfaceName:
-        if False:
-            sniff(store=0, iface=InterfaceName, filter=cl_args['bpf'], stopperTimeout=5, stopper=exit_now, prn=lambda x: tcp_sig_plus(x))
-        elif False:						#Old scapy "stop_filter" feature to exit if needed; doesn't work yet, disabled.
-            sniff(store=0, iface=InterfaceName, filter=cl_args['bpf'], stop_filter=exit_now_packet_param, prn=lambda x: tcp_sig_plus(x))
-        else:							#No attempt to exit sniff loop for the moment.
-            sniff(store=0, iface=InterfaceName, filter=cl_args['bpf'], prn=lambda x: tcp_sig_plus(x))
+        # Unused
+        # scapy.sniff(store=0, iface=InterfaceName, filter=cl_args['bpf'],
+        #     stopperTimeout=5, stopper=scapy.exit_now, prn=tcp_sig_plus)
+
+        # Old scapy "stop_filter" feature to exit if needed; doesn't work yet, disabled.
+        # scapy.sniff(store=0, iface=InterfaceName, filter=cl_args['bpf'],
+        #     stop_filter=scapy.exit_now_packet_param, prn=tcp_sig_plus)
+
+        # No attempt to exit sniff loop for the moment.
+        scapy.sniff(store=0, iface=InterfaceName, filter=cl_args['bpf'],
+            prn=tcp_sig_plus)
 
     if not InterfaceName and cl_args['read'] == []:
-        if False:						
-            sniff(store=0, filter=cl_args['bpf'], stopperTimeout=5, stopper=exit_now, prn=lambda x: tcp_sig_plus(x))
-        elif False:						#Old scapy "stop_filter" feature to exit if needed; doesn't work yet, disabled.
-            sniff(store=0, filter=cl_args['bpf'], stop_filter=exit_now_packet_param, prn=lambda x: tcp_sig_plus(x))
-        else:							#No attempt to exit sniff loop for the moment.
-            sniff(store=0, filter=cl_args['bpf'], prn=lambda x: tcp_sig_plus(x))
+        # Unused
+        # scapy.sniff(store=0, filter=cl_args['bpf'],
+        # stopperTimeout=5, stopper=scapy.exit_now, prn=tcp_sig_plus)
+
+        # Old scapy "stop_filter" feature to exit if needed; doesn't work yet, disabled.
+        # scapy.sniff(store=0, filter=cl_args['bpf'],
+        #     stop_filter=scapy.exit_now_packet_param, prn=tcp_sig_plus)
+
+        #No attempt to exit sniff loop for the moment.
+        scapy.sniff(store=0, filter=cl_args['bpf'], prn=tcp_sig_plus)
