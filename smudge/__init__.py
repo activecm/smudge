@@ -1,3 +1,4 @@
+"""Smudge init file."""
 #   _____ __  __ _    _ _____   _____ ______
 #  / ____|  \/  | |  | |  __ \ / ____|  ____|
 # | (___ | \  / | |  | | |  | | |  __| |__
@@ -9,9 +10,8 @@
 from os.path import exists
 import sqlite3
 
-from .utils import passive_data
-from .utils import pull_data
-from .utils import tcp_sig
-
-from .utils import Quirk
-from .utils import signature
+from smudge.utils import PassiveData
+from smudge.utils import PullData
+from smudge.utils import TcpSig
+from smudge.utils import Quirk
+from smudge.utils import Signature
