@@ -649,7 +649,7 @@ class PullData:
     """
 
 
-    url = "https://raw.githubusercontent.com/activecm/tcp-sig-json/testing-data/tcp-sig.json"
+    url = "https://raw.githubusercontent.com/activecm/tcp-sig-json/main/tcp-sig.json"
 
     @classmethod
     def import_data(cls):
