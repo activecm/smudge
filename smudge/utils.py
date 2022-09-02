@@ -574,8 +574,8 @@ class PassiveData:
     @staticmethod
     def test_github_con():
         '''Tests Internet Connection to Github.com'''
-        with urllib.request.urlopen("https://www.github.com").getcode() as test_result:
-            return bool(test_result == 200)
+        test_result = urllib.request.urlopen("https://www.github.com").getcode()
+        return bool(test_result == 200)
 
 
     @staticmethod
