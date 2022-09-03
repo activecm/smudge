@@ -6,6 +6,7 @@ import sqlite3
 from os.path import exists
 import urllib.request
 import json
+import contextlib
 
 class Quirk:
     """
@@ -574,8 +575,8 @@ class PassiveData:
     @staticmethod
     def test_github_con():
         '''Tests Internet Connection to Github.com'''
-        test_result = urllib.request.urlopen("https://www.github.com").getcode()
-        return bool(test_result == 200)
+        with contextlib.closing(urllib.request.urlopen("https://www.github.com")) as response:
+            return bool(response.getcode() == 200)
 
 
     @staticmethod
