@@ -130,3 +130,9 @@ dmypy.json
 
 # VS Code Files
 settings.json
+
+# PCAP
+*.pcap
+
+# SQLITE DB Dynamically created by SMUDGE
+signature.db

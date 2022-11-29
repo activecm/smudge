@@ -6,6 +6,7 @@ import sqlite3
 from os.path import exists
 import urllib.request
 import json
+import contextlib
 
 class Quirk:
     """
@@ -150,6 +151,8 @@ class Quirk:
                 ts1_minus = 'T0'
         except TypeError:
             pass
+        except KeyError:
+            pass
         return ts1_minus
 
     @property
@@ -161,6 +164,8 @@ class Quirk:
             if ts2['Timestamp'][1] != 0:
                 ts2_plus = 'T'
         except TypeError:
+            pass
+        except KeyError:
             pass
         return ts2_plus
 
@@ -178,10 +183,14 @@ class Quirk:
             exws = dict(self.packet['TCP'].options)
         except TypeError:
             exws = False
+        except KeyError:
+            exws = False
         if exws is not False:
             try:
                 exws = exws['WScale'] >= 14
             except TypeError:
+                exws = False
+            except KeyError:
                 exws = False
         return exws
 
@@ -190,7 +199,6 @@ class Quirk:
     def bad(self):
         '''Sets bad attribute - malformed TCP options.'''
         bad = isinstance(self.packet['TCP'].options, list)
-        bad = False
         return bad
 
     @property
@@ -204,7 +212,7 @@ class Quirk:
                 self.ts2_plus, self.opt_plus, self.exws,
                 self.bad
                 ]
-        quirks = [item for item in items if item is not False]
+        quirks = [item for item in items if type(item) is not bool]
         quirks = ",".join(quirks)
         return quirks
 
@@ -273,9 +281,9 @@ class Signature:
         the value to avoid confusion.
         '''
         if self.version == '4':
-            ittl = self.p['IP'].ttl
+            ittl = self.packet['IP'].ttl
         elif self.version == '6':
-            ittl = self.p['IPv6'].ttl
+            ittl = self.packet['IPv6'].ttl
         else:
             ittl = ''
         return ittl
@@ -288,9 +296,9 @@ class Signature:
         limitations of libpcap.
         '''
         if self.version == '4':
-            olen = len(self.p['IP'].options)
+            olen = len(self.packet['IP'].options)
         elif self.version == '6':
-            olen = len(self.p['IPv6'].options)
+            olen = len(self.packet['IPv6'].options)
         else:
             olen = ''
         return str(olen)
@@ -343,6 +351,8 @@ class Signature:
         try:
             scale = options['WScale']
         except TypeError:
+            scale = '*'
+        except KeyError:
             scale = '*'
         return scale
 
@@ -574,8 +584,8 @@ class PassiveData:
     @staticmethod
     def test_github_con():
         '''Tests Internet Connection to Github.com'''
-        with urllib.request.urlopen("https://www.github.com").getcode() as test_result:
-            return bool(test_result == 200)
+        with contextlib.closing(urllib.request.urlopen("https://www.github.com")) as response:
+            return bool(response.getcode() == 200)
 
 
     @staticmethod
