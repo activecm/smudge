@@ -2,17 +2,21 @@
 SMUDGE setup.py
 """
 
-from setuptools import setup
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from distutils.core import setup, find_packages
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
     name='smudge',
-    version='0.0.1',
-    description='Performs passive OS detection based on SYN packets without transmitting any data.',
+    version='1.0.1',
+    description='Passive OS detection with dynamic signatures.',
+    packages=["smudge"],
     py_modules=["smudge"],
-    package_dir={'': 'smudge'},
+    package_dir={'smudge': 'smudge'},
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
@@ -20,10 +24,10 @@ setup(
         "Topic :: System :: Networking :: Monitoring",
         "Natural Language :: English",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-        "Operating System :: OS Independant",
     ],
     install_requires=[
         "scapy ~= 2.4.5",
+        "colorama ~= 0.4.3"
     ],
     extras_require = {
         "dev": [
