@@ -9,8 +9,9 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='smudge',
-    version='0.0.1',
+    version='1.0.1',
     description='Performs passive OS detection based on SYN packets without transmitting any data.',
+    packages=["smudge"],
     py_modules=["smudge"],
     package_dir={'': 'smudge'},
     classifiers=[
@@ -24,6 +25,7 @@ setup(
     ],
     install_requires=[
         "scapy ~= 2.4.5",
+        "colorama ~= 0.4.3"
     ],
     extras_require = {
         "dev": [
