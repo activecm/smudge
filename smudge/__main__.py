@@ -205,7 +205,7 @@ def main():
     global text
     signal(SIGINT, handler)
     # Argparse Arguments
-    parser = argparse.ArgumentParser(description='SMUDGE passive OS detection based on SYN packets without Transmitting any Data.')
+    parser = argparse.ArgumentParser(prog='smudge', description='SMUDGE passive OS detection based on SYN packets without Transmitting any Data.')
     parser.add_argument('-c', '--colored-text', help='Disable colored text output.', action='store_true', required=False)
     parser.add_argument('-d', '--database', help='Disable local SQlite db creation.', action='store_true', required=False)
     parser.add_argument('-i','--interface', type=str, help='Interface that traffic will be sniffed on.', required=False)
