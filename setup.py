@@ -13,7 +13,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name='smudge',
     version='1.0.1',
-    description='Performs passive OS detection based on SYN packets without transmitting any data.',
+    description='Passive OS detection with dynamic signatures.',
     packages=["smudge"],
     py_modules=["smudge"],
     package_dir={'smudge': 'smudge'},
