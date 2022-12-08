@@ -13,7 +13,7 @@ setup(
     description='Performs passive OS detection based on SYN packets without transmitting any data.',
     packages=["smudge"],
     py_modules=["smudge"],
-    package_dir={'': 'smudge'},
+    package_dir={'smudge': 'smudge'},
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
