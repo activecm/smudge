@@ -23,7 +23,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Topic :: System :: Networking :: Monitoring",
         "Natural Language :: English",
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"
     ],
     install_requires=[
         "scapy ~= 2.4.5",
