@@ -2,6 +2,7 @@
 
 
 <!-- PROJECT SHIELDS -->
+[![PyPI version][pypi-shield]][pypi-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -273,6 +274,8 @@ Project Link: [https://github.com/activecm/smudge](https://github.com/activecm/s
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[pypi-shield]: https://badge.fury.io/py/smudge.svg
+[pypi-url]: https://badge.fury.io/py/smudge
 [contributors-shield]: https://img.shields.io/github/contributors/activecm/smudge
 [contributors-url]: https://github.com/activecm/smudge/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/activecm/smudge
