@@ -1,5 +1,4 @@
 "Pytest Module for Passive Data"
-import pytest
 import pathlib as pl
 import sqlite3
 
