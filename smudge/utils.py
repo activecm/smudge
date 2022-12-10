@@ -212,7 +212,7 @@ class Quirk:
                 self.ts2_plus, self.opt_plus, self.exws,
                 self.bad
                 ]
-        quirks = [item for item in items if type(item) is not bool]
+        quirks = [item for item in items if not isinstance(item, bool)]
         quirks = ",".join(quirks)
         return quirks
 
