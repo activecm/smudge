@@ -15,3 +15,4 @@ from smudge.utils import PullData
 from smudge.utils import TcpSig
 from smudge.utils import Quirk
 from smudge.utils import Signature
+from smudge.command_line import CommandLineUtility
