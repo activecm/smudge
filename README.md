@@ -70,7 +70,7 @@
 ## About The Project
 
 <a href="https://github.com/activecm/smudge">
-    <img src="images/smudge_screenshot.png" alt="Screenshot" width="900" height="300">
+    <img src="images/smudge_screenshot.png" alt="Screenshot" width="900" height="500">
 </a>
 
 
