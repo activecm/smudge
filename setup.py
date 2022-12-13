@@ -15,6 +15,7 @@ setup(
     version='1.0.1',
     description='Passive OS detection with dynamic signatures.',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     packages=["smudge"],
     py_modules=["smudge"],
     package_dir={'smudge': 'smudge'},
