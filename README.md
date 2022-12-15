@@ -101,9 +101,11 @@ Ensure that scapy is installed:
 
 Smudge is a component of Active Countermeasure's Passer. It can be called from the command line via the following arguments:
 
-<a> `-p, --passive_fingerprinting`<br/>Enables Smudge.</a><br/>
-<a> `-d, --devel`<br/>Creates signatures and outputs them. </a><br/>
-<a> `-j, --json`<br/>Specifies local file to load signatures from. </a><br/>
+<a> `-c, --colored-text`<br/>Disable colored text output.</a><br/>
+<a> `-d, --database`<br/>Disable local SQlite db creation. </a><br/>
+<a> `-i, --interface`<br/>Specifies network interface that traffic will be sniffed on. </a><br/>
+<a> `-l, --list`<br/>List available network interface that traffic can be sniffed on. </a><br/>
+<a> `-r, --read`<br/>Specifies PCAP file that will be read by SMUDGE. </a><br/>
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
