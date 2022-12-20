@@ -132,6 +132,7 @@ dmypy.json
 settings.json
 
 # PCAP
+!test.pcap
 *.pcap
 
 # SQLITE DB Dynamically created by SMUDGE
