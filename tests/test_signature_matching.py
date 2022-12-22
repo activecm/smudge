@@ -1,5 +1,4 @@
 """Smudge Test module for Signature class"""
-import pytest
 from scapy.all import sniff
 from smudge import Signature
 
