@@ -1,0 +1,2673 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>utils API documentation</title>
+<meta name="description" content="Signature Matching" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>utils</code></h1>
+</header>
+<section id="section-intro">
+<p>Signature Matching</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+Signature Matching
+&#34;&#34;&#34;
+
+import sqlite3
+from os.path import exists
+import urllib.request
+import json
+import contextlib
+
+class Quirk:
+    &#34;&#34;&#34;
+    Creates quirks - comma-delimited properties and quirks observed in IP or TCP headers.
+        If a signature scoped to both IPv4 and IPv6 contains quirks valid
+            for just one of these protocols, such quirks will be ignored for
+            on packets using the other protocol. For example, any combination
+            of &#39;df&#39;, &#39;id+&#39;, and &#39;id-&#39; is always matched by any IPv6 packet.
+    &#34;&#34;&#34;
+
+    def __init__(self, packet):
+        &#39;&#39;&#39;Takes a packet as an argument.&#39;&#39;&#39;
+        self.packet = packet
+
+    def __str__(self):
+        return self.qstring
+
+    @property
+    def df_flag(self):
+        &#39;&#39;&#39;Sets df attribute based on flag -
+            &#34;don&#39;t fragment&#34; set (probably PMTUD);
+            ignored for IPv6.
+        &#39;&#39;&#39;
+        version = self.packet.version
+        if version == 6:
+            df_flag = False
+        else:
+            if &#39;DF&#39; in self.packet[&#39;IP&#39;].flags.names:
+                df_flag = &#39;df&#39;
+        return df_flag
+
+    @property
+    def id_plus(self):
+        &#39;&#39;&#39;Sets id+ attribute based on flag and IPID -
+           DF set but IPID non-zero;
+           ignored for IPv6.
+        &#39;&#39;&#39;
+        version = self.packet.version
+        if version == 6:
+            id_plus = False
+        else:
+            id_plus = False
+            if self.packet[&#39;IP&#39;].flags ==&#39;DF&#39; and self.packet[&#39;IP&#39;].id != 0:
+                id_plus = &#39;id+&#39;
+        return id_plus
+
+    @property
+    def id_minus(self):
+        &#39;&#39;&#39;
+        Sets id- attribute based on flag and IPID -
+        DF not set but IPID is zero; ignored for IPv6.
+        &#39;&#39;&#39;
+        version = self.packet.version
+        if version == 6:
+            id_minus = False
+        else:
+            id_minus = False
+            if self.packet[&#39;IP&#39;].flags ==&#39;DF&#39; and self.packet[&#39;IP&#39;].id == 0:
+                id_minus = &#39;id-&#39;
+        return id_minus
+
+    @property
+    def ecn(self):
+        &#39;&#39;&#39;Sets ecn attribute - explicit congestion notification support.&#39;&#39;&#39;
+        ecn = False
+        if &#39;E&#39; in self.packet[&#39;TCP&#39;].flags:
+            ecn = &#39;ecn&#39;
+        return ecn
+
+    @property
+    def zero_plus(self):
+        &#39;&#39;&#39;Sets 0+ Attribute -  &#34;must be zero&#34; field not zero; ignored for IPv6.&#39;&#39;&#39;
+        version = self.packet.version
+        if version == 6:
+            zero_plus = False
+        else:
+            zero_plus = False
+            if self.packet.reserved != 0:
+                zero_plus = &#39;0+&#39;
+        return zero_plus
+
+    @property
+    def flow(self):
+        &#39;&#39;&#39;Sets flow Attribute - non-zero IPv6 flow ID; ignored for IPv4.&#39;&#39;&#39;
+        #TODO IPv6 support
+        flow = False
+        return flow
+
+    @property
+    def seq_minus(self):
+        &#39;&#39;&#39;Sets seq- attribute - sequence number is zero.&#39;&#39;&#39;
+        seq_minus = False
+        if self.packet[&#39;TCP&#39;].seq == 0:
+            seq_minus = &#39;seq-&#39;
+        return seq_minus
+
+    @property
+    def ack_plus(self):
+        &#39;&#39;&#39;Sets ack+ - ACK number is non-zero, but ACK flag not set.&#39;&#39;&#39;
+        ack_plus = False
+        if self.packet[&#39;TCP&#39;].ack != 0:
+            ack_plus = &#39;ack+&#39;
+        return ack_plus
+
+    @property
+    def ack_minus(self):
+        &#39;&#39;&#39;Sets ack- - ACK number is zero, but ACK flag set.&#39;&#39;&#39;
+        ack_minus = False
+        if self.packet[&#39;TCP&#39;].ack == 0:
+            ack_minus = &#39;ack-&#39;
+        return ack_minus
+
+    @property
+    def uptr_plus(self):
+        &#39;&#39;&#39;Sets uptr+ attribute - URG pointer is non-zero, but URG flag not set.&#39;&#39;&#39;
+        uptr_plus = &#39;uptr+&#39;
+        return uptr_plus
+
+    @property
+    def urgf_plus(self):
+        &#39;&#39;&#39;Sets urgf+ attribute - URG flag used.&#39;&#39;&#39;
+        urgf_plus = False
+        if &#39;URG&#39; in self.packet[&#39;IP&#39;].flags:
+            urgf_plus = &#39;urgf+&#39;
+        return urgf_plus
+
+    @property
+    def pushf_plus(self):
+        &#39;&#39;&#39;Sets pushf+ attribute - PUSH flag used.&#39;&#39;&#39;
+        pushf_plus = False
+        if &#39;PUSH&#39; in self.packet[&#39;IP&#39;].flags:
+            pushf_plus = &#39;pushf+&#39;
+        return pushf_plus
+
+    @property
+    def ts1_minus(self):
+        &#39;&#39;&#39;Sets ts1- attribute - own timestamp specified as zero.&#39;&#39;&#39;
+        ts1_minus = False
+        try:
+            ts1 = dict(self.packet[&#39;TCP&#39;].options)
+            if ts1[&#39;Timestamp&#39;][0] == 0:
+                ts1_minus = &#39;T0&#39;
+        except TypeError:
+            pass
+        except KeyError:
+            pass
+        return ts1_minus
+
+    @property
+    def ts2_plus(self):
+        &#39;&#39;&#39;Sets ts2+ attribute - non-zero peer timestamp on initial SYN.&#39;&#39;&#39;
+        ts2_plus = False
+        try:
+            ts2 = dict(self.packet[&#39;TCP&#39;].options)
+            if ts2[&#39;Timestamp&#39;][1] != 0:
+                ts2_plus = &#39;T&#39;
+        except TypeError:
+            pass
+        except KeyError:
+            pass
+        return ts2_plus
+
+    #TODO
+    @property
+    def opt_plus(self):
+        &#39;&#39;&#39;Sets opt+ attribute - trailing non-zero data in options segment.&#39;&#39;&#39;
+        opt_plus = False
+        return opt_plus
+
+    @property
+    def exws(self):
+        &#39;&#39;&#39;Sets exws attribute - excessive window scaling factor (&gt; 14).&#39;&#39;&#39;
+        try:
+            exws = dict(self.packet[&#39;TCP&#39;].options)
+        except TypeError:
+            exws = False
+        except KeyError:
+            exws = False
+        if exws is not False:
+            try:
+                exws = exws[&#39;WScale&#39;] &gt;= 14
+            except TypeError:
+                exws = False
+            except KeyError:
+                exws = False
+        return exws
+
+    #TODO
+    @property
+    def bad(self):
+        &#39;&#39;&#39;Sets bad attribute - malformed TCP options.&#39;&#39;&#39;
+        bad = isinstance(self.packet[&#39;TCP&#39;].options, list)
+        return bad
+
+    @property
+    def qstring(self):
+        &#39;&#39;&#39;Looks at all attributes and makes quirks.&#39;&#39;&#39;
+        items = [
+                self.df_flag, self.id_plus, self.id_minus,
+                self.ecn, self.zero_plus, self.flow,
+                self.seq_minus, self.ack_plus, self.ack_minus,
+                self.uptr_plus, self.pushf_plus, self.ts1_minus,
+                self.ts2_plus, self.opt_plus, self.exws,
+                self.bad
+                ]
+        quirks = [item for item in items if not isinstance(item, bool)]
+        quirks = &#34;,&#34;.join(quirks)
+        return quirks
+
+
+class Signature:
+    &#34;&#34;&#34;
+    Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.
+    &#34;&#34;&#34;
+    def __init__(self, packet):
+        self.packet = packet
+
+    @staticmethod
+    def process_options(option: list) -&gt; str:
+        &#39;&#39;&#39;Static method for processing options.&#39;&#39;&#39;
+        option_zero = option[0]
+        option_one = option[1]
+        if option_zero == &#39;MSS&#39; and option_one in [0, &#39;&#39;]:
+            options_output = &#39;M*&#39;
+        elif option_zero == &#39;MSS&#39; and option_one &gt; 1:
+            options_output = &#39;M&#39; + str(option_one)
+        elif option_zero == &#39;NOP&#39;:
+            options_output = &#39;N&#39;
+        elif option_zero == &#39;WScale&#39;:
+            options_output= &#39;W&#39; + str(option_one)
+        elif option_zero == &#39;SAckOK&#39;:
+            options_output = &#39;S&#39;
+        elif option_zero == &#39;EOL&#39;:
+            options_output = &#39;E&#39;
+        else:
+            # TODO
+            # The p0f docs state:
+            #  ?n     - unknown option ID n
+            # What does that even mean?
+            # Then to make things even more vague
+            # some random documentation on cert.org states:
+            #  ?n       - unrecognized option number n.
+            # Soooooo, unrecognized != unknown
+            # I came up with the following and the output does not look correct. \
+            # We went with literally returning &#39;?n&#39;
+            # return &#39;?&#39; + str(option[1])
+            options_output = &#39;?n&#39;
+        return options_output
+
+    @property
+    def version(self):
+        &#39;&#39;&#39;Signature for IPv4 (&#39;4&#39;), IPv6 (&#39;6&#39;), or both (&#39;*&#39;).&#39;&#39;&#39;
+        version = self.packet.version
+        return str(version)
+
+    @property
+    def ittl(self):
+        &#39;&#39;&#39;
+        Initial TTL used by the OS. Almost all operating systems use
+        64, 128, or 255; ancient versions of Windows sometimes used
+        32, and several obscure systems sometimes resort to odd values
+        such as 60.
+
+        NEW SIGNATURES: P0f will usually suggest something, using the
+        format of &#39;observed_ttl+distance&#39; (e.g. 54+10). Consider using
+        traceroute to check that the distance is accurate, then sum up
+        the values. If initial TTL can&#39;t be guessed, p0f will output
+        &#39;nnn+?&#39;, and you need to use traceroute to estimate the &#39;?&#39;.
+
+        A handful of userspace tools will generate random TTLs. In these
+        cases, determine maximum initial TTL and then add a - suffix to
+        the value to avoid confusion.
+        &#39;&#39;&#39;
+        if self.version == &#39;4&#39;:
+            ittl = self.packet[&#39;IP&#39;].ttl
+        elif self.version == &#39;6&#39;:
+            ittl = self.packet[&#39;IPv6&#39;].ttl
+        else:
+            ittl = &#39;&#39;
+        return ittl
+
+    @property
+    def olen(self):
+        &#39;&#39;&#39;
+        Length of IPv4 options or IPv6 extension headers. Usually zero
+        for normal IPv4 traffic; always zero for IPv6 due to the
+        limitations of libpcap.
+        &#39;&#39;&#39;
+        if self.version == &#39;4&#39;:
+            olen = len(self.packet[&#39;IP&#39;].options)
+        elif self.version == &#39;6&#39;:
+            olen = len(self.packet[&#39;IPv6&#39;].options)
+        else:
+            olen = &#39;&#39;
+        return str(olen)
+
+    @property
+    def mss(self):
+        &#39;&#39;&#39;
+        maximum segment size, if specified in TCP options. Special value
+        of &#39;*&#39; can be used to denote that MSS varies depending on the
+        parameters of sender&#39;s network link, and should not be a part of
+        the signature. In this case, MSS will be used to guess the
+        type of network hookup according to the [mtu] rules.
+
+        NEW SIGNATURES: Use &#39;*&#39; for any commodity OSes where MSS is
+        around 1300 - 1500, unless you know for sure that it&#39;s fixed.
+        If the value is outside that range, you can probably copy it
+        literally.
+        &#39;&#39;&#39;
+        mss = dict(self.packet[&#39;TCP&#39;].options)
+        try:
+            return str(mss[&#39;MSS&#39;])
+        except KeyError:
+            return &#39;*&#39;
+
+    @property
+    def window_size(self):
+        &#39;&#39;&#39;
+        Window size. Can be expressed as a fixed value, but many
+        operating systems set it to a multiple of MSS or MTU, or a
+        multiple of some random integer. P0f automatically detects these
+        cases, and allows notation such as &#39;mss*4&#39;, &#39;mtu*4&#39;, or &#39;%8192&#39;
+        to be used. Wilcard (&#39;*&#39;) is possible too.
+        &#39;&#39;&#39;
+        window_size = self.packet[&#39;TCP&#39;].window
+        if self.mss != &#39;*&#39;:
+            if (self.packet[&#39;TCP&#39;].window / int(self.mss)).is_integer():
+                window_size = &#34;mss*&#34; + str(int(self.packet[&#39;TCP&#39;].window / int(self.mss)))
+        return str(window_size)
+
+    @property
+    def scale(self):
+        &#39;&#39;&#39;
+        Window scaling factor, if specified in TCP options. Fixed value
+        or &#39;*&#39;.
+        NEW SIGNATURES: Copy literally, unless the value varies randomly.
+        Many systems alter between 2 or 3 scaling factors, in which case,
+        it&#39;s better to have several &#39;sig&#39; lines, rather than a wildcard.
+        &#39;&#39;&#39;
+        options = dict(self.packet[&#39;TCP&#39;].options)
+        try:
+            scale = options[&#39;WScale&#39;]
+        except TypeError:
+            scale = &#39;*&#39;
+        except KeyError:
+            scale = &#39;*&#39;
+        return scale
+
+    @property
+    def olayout(self):
+        &#39;&#39;&#39;
+        comma-delimited layout and ordering of TCP options, if any. This
+        is one of the most valuable TCP fingerprinting signals. Supported
+        values.
+        &#39;&#39;&#39;
+        if len(self.packet[&#39;TCP&#39;].options) == 0:
+            olayout = &#39;*&#39;
+        else:
+            loo = []
+            for i in self.packet[&#39;TCP&#39;].options:
+                loo.append(Signature.process_options(i))
+            olayout = &#39;,&#39;.join(map(str, loo))
+        return olayout
+
+    @property
+    def quirk(self):
+        &#39;&#39;&#39;
+        Comma-delimited properties and quirks observed in IP or TCP
+        headers.
+        &#39;&#39;&#39;
+        quirks = Quirk(self.packet)
+        return str(quirks)
+
+    @property
+    def pclass(self):
+        &#39;&#39;&#39;
+        Payload size classification: &#39;0&#39; for zero, &#39;+&#39; for non-zero,
+        &#39;*&#39; for any. The packets we fingerprint right now normally have
+        no payloads, but some corner cases exist.
+        &#39;&#39;&#39;
+        pclass = len(self.packet[&#39;TCP&#39;].payload)
+        if pclass != 0:
+            pclass = &#39;+&#39;
+        return str(pclass)
+
+    @property
+    def qstring(self):
+        &#39;&#39;&#39;Create Query String&#39;&#39;&#39;
+        qstring = f&#34;{self.version}:&#34;\
+        + f&#34;{self.ittl}:{self.olen}:{self.mss}:&#34;\
+        + f&#34;{self.window_size}:{self.scale}:&#34;\
+        + f&#34;{self.olayout}:{self.quirk}:{self.pclass}&#34;
+        return qstring
+
+    def __str__(self):
+        return self.qstring
+
+
+
+class Matching():
+    &#34;&#34;&#34;This class be matching.&#34;&#34;&#34;
+
+    @staticmethod
+    def create_con():
+        &#39;&#39;&#39;Create Database Connection&#39;&#39;&#39;
+        return sqlite3.connect(&#39;signature.db&#39;)
+
+    @staticmethod
+    def sig_match_one(conn, sig_obj):
+        &#39;&#39;&#39;Select 100%&#39;&#39;&#39;
+        cur = conn.cursor()
+        cur.execute(
+            &#34;SELECT * FROM signatures WHERE version=? AND ittl=?\
+            AND olen=? AND mss=? AND wsize=? AND scale=?\
+            AND olayout=? AND quirks=? AND pclass=?&#34;,
+            [sig_obj.version, sig_obj.ittl, sig_obj.olen, sig_obj.mss,\
+            sig_obj.window_size,sig_obj.scale, sig_obj.olayout,\
+            sig_obj.quirk, sig_obj.pclass]
+            )
+        signature_matches = cur.fetchall()
+        if len(signature_matches) == 0:
+            signature_matches = None
+        return signature_matches
+
+    @staticmethod
+    def sig_match_eighty(conn, signature_options):
+        &#39;&#39;&#39;Select 80%&#39;&#39;&#39;
+        cur = conn.cursor()
+        cur.execute(
+            &#34;SELECT * FROM signatures WHERE version=?\
+            AND ittl=? AND olen=? AND mss=? AND wsize=?\
+            AND scale=? AND olayout=? AND pclass=?&#34;,
+            [
+                signature_options.version,
+                signature_options.ittl,
+                signature_options.olen,
+                signature_options.mss,
+                signature_options.window_size,
+                signature_options.scale,
+                signature_options.olayout,
+                signature_options.pclass
+                ]
+            )
+        signature_matches = cur.fetchall()
+        if len(signature_matches) == 0:
+            signature_matches = None
+        return signature_matches
+
+    # didn&#39;t know what you meant with &#39;so&#39;
+    @staticmethod
+    def sig_match_sixty(conn, signature_options):
+        &#39;&#39;&#39;Select 60%&#39;&#39;&#39;
+        cur = conn.cursor()
+        cur.execute(
+            &#34;SELECT * FROM signatures WHERE version=?\
+            AND ittl=? AND olen=? AND wsize=?\
+            AND scale=? AND olayout=?&#34;,
+                [
+                signature_options.version,
+                signature_options.ittl,
+                signature_options.olen,
+                signature_options.window_size,
+                signature_options.scale,
+                signature_options.olayout
+                ]
+            )
+        signature_matches = cur.fetchall()
+        if len(signature_matches) == 0:
+            signature_matches = None
+        return signature_matches
+
+    @staticmethod
+    def sig_match_fourty(conn, signature_options):
+        &#39;&#39;&#39;Select 40%&#39;&#39;&#39;
+        cur = conn.cursor()
+        cur.execute(
+            &#34;SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=? AND olayout=?&#34;,
+            [
+                signature_options.version,
+                signature_options.ittl,
+                signature_options.olen,
+                signature_options.olayout]
+            )
+        signature_matches = cur.fetchall()
+        if len(signature_matches) == 0:
+            signature_matches = None
+        return signature_matches
+
+    @staticmethod
+    def sig_match_twenty(conn, signature_options):
+        &#39;&#39;&#39;Select 20%&#39;&#39;&#39;
+        cur = conn.cursor()
+        cur.execute(
+            &#34;SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=?&#34;,
+            [signature_options.version, signature_options.ittl, signature_options.olen]
+            )
+        signature_matches = cur.fetchall()
+        if len(signature_matches) == 0:
+            signature_matches = None
+        return signature_matches
+
+
+    @staticmethod
+    def match(signature_obj):
+        &#39;&#39;&#39;Match.&#39;&#39;&#39;
+        conn = Matching.create_con()
+        results = &#39;&#39;
+        one_hundred = Matching.sig_match_one(conn, signature_obj)
+        if one_hundred:
+            results = (&#39;100%&#39;, one_hundred)
+        if results == &#39;&#39;:
+            eighty = Matching.sig_match_eighty(conn, signature_obj)
+            if eighty:
+                results = (&#39;80%&#39;, eighty)
+        if results == &#39;&#39;:
+            sixty = Matching.sig_match_sixty(conn, signature_obj)
+            if sixty:
+                results = (&#39;60%&#39;, sixty)
+        if results == &#39;&#39;:
+            fourty = Matching.sig_match_fourty(conn, signature_obj)
+            if fourty:
+                results = (&#39;40%&#39;, fourty)
+        if results == &#39;&#39;:
+            twenty = Matching.sig_match_twenty(conn, signature_obj)
+            if twenty:
+                results = (&#39;20%&#39;, twenty)
+        if results == &#39;&#39;:
+            results = (&#39;0%&#39;, signature_obj)
+        conn.close()
+        return results
+
+
+
+class QueryObject():
+    &#34;&#34;&#34;
+    Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                    acid, platform, tcp_flag, comments, version, ittl,
+                     olen, mss, wsize, scale, olayout, quirks, pclass
+                ):
+        self.sig_acid = acid
+        self.platform = platform
+        self.sig_tcp_flag = tcp_flag
+        self.sig_comments = comments
+        self.version = version
+        self.ittl = ittl
+        self.olen = olen
+        self.mss = mss
+        self.wsize = wsize
+        self.scale = scale
+        self.olayout = olayout
+        self.quirks = quirks
+        self.pclass = pclass
+
+    @property
+    def qstring(self):
+        &#39;&#39;&#39;Query String.&#39;&#39;&#39;
+        qstring = f&#34;{self.version}:{self.ittl}:{self.olen}\
+        :{self.mss}:{self.wsize}:{self.scale}\
+        :{self.olayout}:{self.quirks}:{self.pclass}&#34;
+        return qstring
+
+    def __str__(self):
+        return self.qstring
+
+
+class PassiveData:
+    &#34;&#34;&#34;
+    A class filled with static methods that interacts with the sqlite database.
+    &#34;&#34;&#34;
+
+    @staticmethod
+    def test_github_con():
+        &#39;&#39;&#39;Tests Internet Connection to Github.com&#39;&#39;&#39;
+        with contextlib.closing(urllib.request.urlopen(&#34;https://www.github.com&#34;)) as response:
+            return bool(response.getcode() == 200)
+
+
+    @staticmethod
+    def create_con():
+        &#39;&#39;&#39;Create Database Connection&#39;&#39;&#39;
+        return sqlite3.connect(&#39;signature.db&#39;)
+
+
+    @staticmethod
+    def setup_db():
+        &#39;&#39;&#39;Create Sqlite3 DB with all required tables&#39;&#39;&#39;
+        if exists(&#39;signature.db&#39;):
+            pass
+        else:
+            with open(&#39;signature.db&#39;, &#39;x&#39;, encoding=&#39;utf-8&#39;) as _:
+                pass
+            conn = sqlite3.connect(&#39;signature.db&#39;)
+            # Create Signatures Table
+            conn.execute(&#39;&#39;&#39;CREATE TABLE &#34;signatures&#34; (
+                &#34;id&#34;    INTEGER NOT NULL UNIQUE,
+                &#34;acid&#34;  INTEGER UNIQUE,
+                &#34;platform&#34;  TEXT,
+            &#34;tcp_flag&#34;  TEXT,
+                &#34;version&#34;       TEXT NOT NULL,
+                &#34;ittl&#34;  TEXT,
+                &#34;olen&#34;  TEXT,
+                &#34;mss&#34;   TEXT,
+                &#34;wsize&#34; TEXT,
+                &#34;scale&#34; TEXT,
+                &#34;olayout&#34;       TEXT,
+                &#34;quirks&#34;        TEXT,
+                &#34;pclass&#34;        TEXT,
+                &#34;comments&#34;      TEXT,
+                PRIMARY KEY(&#34;id&#34; AUTOINCREMENT)
+            );&#39;&#39;&#39;)
+            conn.close()
+        return True
+
+    @staticmethod
+    def signature_insert(conn, sig_obj):
+        &#39;&#39;&#39;Insert Statement for the Signature Table.&#39;&#39;&#39;
+        entry = conn.execute(&#39;SELECT id FROM signatures WHERE (acid=?)&#39;, (sig_obj.sig_acid,))
+        entry = entry.fetchone()
+        if entry is None:
+            conn.execute(&#34;insert into signatures\
+            (acid, platform, tcp_flag, version,\
+            ittl, olen, mss, wsize,\
+            scale, olayout, quirks, pclass,\
+            comments) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)&#34;,
+            (sig_obj.sig_acid, sig_obj.platform, sig_obj.sig_tcp_flag, sig_obj.version,\
+            sig_obj.ittl, sig_obj.olen, sig_obj.mss, sig_obj.wsize, sig_obj.scale,\
+            sig_obj.olayout, sig_obj.quirks, sig_obj.pclass, sig_obj.sig_comments))
+            conn.commit()
+        return True
+
+
+
+class PullData:
+    &#34;&#34;&#34;
+    A class that contains a method that:
+        * Loads a json file from github into memory.
+        * Dumps the json into the sqlite database.
+
+    The use of class methods is used so that class variables can be overrided for testing.
+    ...
+
+    Class Variables
+    ----------
+    url : str
+        URL of raw json file that contains TCP Signatures.
+    &#34;&#34;&#34;
+
+
+    url = &#34;https://raw.githubusercontent.com/activecm/tcp-sig-json/main/tcp-sig.json&#34;
+
+    @classmethod
+    def import_data(cls):
+        &#34;&#34;&#34;Imports TCP Signatures from raw JSON file hosted on Github.&#34;&#34;&#34;
+        with urllib.request.urlopen(cls.url) as f_p:
+            data = json.load(f_p)
+            return data
+
+    @classmethod
+    def import_local_data(cls, json_file):
+        &#34;&#34;&#34;Imports TCP Signatures from local raw JSON file.&#34;&#34;&#34;
+        with open(json_file, encoding=&#39;utf-8&#39;) as f_p:
+            data = json.load(f_p)
+            return data
+
+class TcpSig:
+    &#34;&#34;&#34;
+    Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.
+    &#34;&#34;&#34;
+
+    def __init__(self, tcp_sig_obj):
+        self.sig_acid = tcp_sig_obj[&#39;acid&#39;]
+        self.platform = tcp_sig_obj[&#39;platform&#39;]
+        self.sig_tcp_flag = tcp_sig_obj[&#39;tcp_flag&#39;]
+        self.sig_comments = tcp_sig_obj[&#39;comments&#39;]
+        self.signature = dict(
+            zip(
+                [&#39;version&#39;, &#39;ittl&#39;, &#39;olen&#39;, &#39;mss&#39;, &#39;wsize&#39;, &#39;scale&#39;, &#39;olayout&#39;, &#39;quirks&#39;, &#39;pclass&#39;],
+                tcp_sig_obj[&#39;tcp_sig&#39;].split(&#39;:&#39;)
+                )
+            )
+        self.version = self.signature[&#39;version&#39;]
+        self.ittl = self.signature[&#39;ittl&#39;]
+        self.olen = self.signature[&#39;olen&#39;]
+        self.mss = self.signature[&#39;mss&#39;]
+        self.wsize = self.signature[&#39;wsize&#39;]
+        self.scale = self.signature[&#39;scale&#39;]
+        self.olayout = self.signature[&#39;olayout&#39;]
+        self.quirks = self.signature[&#39;quirks&#39;]
+        self.pclass = self.signature[&#39;pclass&#39;]
+
+    @property
+    def qstring(self):
+        &#34;&#34;&#34;QString.&#34;&#34;&#34;
+        qstring = f&#34;{self.version}:\
+            {self.ittl}:{self.olen}:{self.mss}:\
+            {self.wsize}:{self.scale}:{self.olayout}:\
+            {self.quirks}:{self.pclass}&#34;
+        return qstring
+
+    def __str__(self):
+        return self.qstring</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="utils.Matching"><code class="flex name class">
+<span>class <span class="ident">Matching</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>This class be matching.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Matching():
+    &#34;&#34;&#34;This class be matching.&#34;&#34;&#34;
+
+    @staticmethod
+    def create_con():
+        &#39;&#39;&#39;Create Database Connection&#39;&#39;&#39;
+        return sqlite3.connect(&#39;signature.db&#39;)
+
+    @staticmethod
+    def sig_match_one(conn, sig_obj):
+        &#39;&#39;&#39;Select 100%&#39;&#39;&#39;
+        cur = conn.cursor()
+        cur.execute(
+            &#34;SELECT * FROM signatures WHERE version=? AND ittl=?\
+            AND olen=? AND mss=? AND wsize=? AND scale=?\
+            AND olayout=? AND quirks=? AND pclass=?&#34;,
+            [sig_obj.version, sig_obj.ittl, sig_obj.olen, sig_obj.mss,\
+            sig_obj.window_size,sig_obj.scale, sig_obj.olayout,\
+            sig_obj.quirk, sig_obj.pclass]
+            )
+        signature_matches = cur.fetchall()
+        if len(signature_matches) == 0:
+            signature_matches = None
+        return signature_matches
+
+    @staticmethod
+    def sig_match_eighty(conn, signature_options):
+        &#39;&#39;&#39;Select 80%&#39;&#39;&#39;
+        cur = conn.cursor()
+        cur.execute(
+            &#34;SELECT * FROM signatures WHERE version=?\
+            AND ittl=? AND olen=? AND mss=? AND wsize=?\
+            AND scale=? AND olayout=? AND pclass=?&#34;,
+            [
+                signature_options.version,
+                signature_options.ittl,
+                signature_options.olen,
+                signature_options.mss,
+                signature_options.window_size,
+                signature_options.scale,
+                signature_options.olayout,
+                signature_options.pclass
+                ]
+            )
+        signature_matches = cur.fetchall()
+        if len(signature_matches) == 0:
+            signature_matches = None
+        return signature_matches
+
+    # didn&#39;t know what you meant with &#39;so&#39;
+    @staticmethod
+    def sig_match_sixty(conn, signature_options):
+        &#39;&#39;&#39;Select 60%&#39;&#39;&#39;
+        cur = conn.cursor()
+        cur.execute(
+            &#34;SELECT * FROM signatures WHERE version=?\
+            AND ittl=? AND olen=? AND wsize=?\
+            AND scale=? AND olayout=?&#34;,
+                [
+                signature_options.version,
+                signature_options.ittl,
+                signature_options.olen,
+                signature_options.window_size,
+                signature_options.scale,
+                signature_options.olayout
+                ]
+            )
+        signature_matches = cur.fetchall()
+        if len(signature_matches) == 0:
+            signature_matches = None
+        return signature_matches
+
+    @staticmethod
+    def sig_match_fourty(conn, signature_options):
+        &#39;&#39;&#39;Select 40%&#39;&#39;&#39;
+        cur = conn.cursor()
+        cur.execute(
+            &#34;SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=? AND olayout=?&#34;,
+            [
+                signature_options.version,
+                signature_options.ittl,
+                signature_options.olen,
+                signature_options.olayout]
+            )
+        signature_matches = cur.fetchall()
+        if len(signature_matches) == 0:
+            signature_matches = None
+        return signature_matches
+
+    @staticmethod
+    def sig_match_twenty(conn, signature_options):
+        &#39;&#39;&#39;Select 20%&#39;&#39;&#39;
+        cur = conn.cursor()
+        cur.execute(
+            &#34;SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=?&#34;,
+            [signature_options.version, signature_options.ittl, signature_options.olen]
+            )
+        signature_matches = cur.fetchall()
+        if len(signature_matches) == 0:
+            signature_matches = None
+        return signature_matches
+
+
+    @staticmethod
+    def match(signature_obj):
+        &#39;&#39;&#39;Match.&#39;&#39;&#39;
+        conn = Matching.create_con()
+        results = &#39;&#39;
+        one_hundred = Matching.sig_match_one(conn, signature_obj)
+        if one_hundred:
+            results = (&#39;100%&#39;, one_hundred)
+        if results == &#39;&#39;:
+            eighty = Matching.sig_match_eighty(conn, signature_obj)
+            if eighty:
+                results = (&#39;80%&#39;, eighty)
+        if results == &#39;&#39;:
+            sixty = Matching.sig_match_sixty(conn, signature_obj)
+            if sixty:
+                results = (&#39;60%&#39;, sixty)
+        if results == &#39;&#39;:
+            fourty = Matching.sig_match_fourty(conn, signature_obj)
+            if fourty:
+                results = (&#39;40%&#39;, fourty)
+        if results == &#39;&#39;:
+            twenty = Matching.sig_match_twenty(conn, signature_obj)
+            if twenty:
+                results = (&#39;20%&#39;, twenty)
+        if results == &#39;&#39;:
+            results = (&#39;0%&#39;, signature_obj)
+        conn.close()
+        return results</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="utils.Matching.create_con"><code class="name flex">
+<span>def <span class="ident">create_con</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create Database Connection</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def create_con():
+    &#39;&#39;&#39;Create Database Connection&#39;&#39;&#39;
+    return sqlite3.connect(&#39;signature.db&#39;)</code></pre>
+</details>
+</dd>
+<dt id="utils.Matching.match"><code class="name flex">
+<span>def <span class="ident">match</span></span>(<span>signature_obj)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Match.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def match(signature_obj):
+    &#39;&#39;&#39;Match.&#39;&#39;&#39;
+    conn = Matching.create_con()
+    results = &#39;&#39;
+    one_hundred = Matching.sig_match_one(conn, signature_obj)
+    if one_hundred:
+        results = (&#39;100%&#39;, one_hundred)
+    if results == &#39;&#39;:
+        eighty = Matching.sig_match_eighty(conn, signature_obj)
+        if eighty:
+            results = (&#39;80%&#39;, eighty)
+    if results == &#39;&#39;:
+        sixty = Matching.sig_match_sixty(conn, signature_obj)
+        if sixty:
+            results = (&#39;60%&#39;, sixty)
+    if results == &#39;&#39;:
+        fourty = Matching.sig_match_fourty(conn, signature_obj)
+        if fourty:
+            results = (&#39;40%&#39;, fourty)
+    if results == &#39;&#39;:
+        twenty = Matching.sig_match_twenty(conn, signature_obj)
+        if twenty:
+            results = (&#39;20%&#39;, twenty)
+    if results == &#39;&#39;:
+        results = (&#39;0%&#39;, signature_obj)
+    conn.close()
+    return results</code></pre>
+</details>
+</dd>
+<dt id="utils.Matching.sig_match_eighty"><code class="name flex">
+<span>def <span class="ident">sig_match_eighty</span></span>(<span>conn, signature_options)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Select 80%</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def sig_match_eighty(conn, signature_options):
+    &#39;&#39;&#39;Select 80%&#39;&#39;&#39;
+    cur = conn.cursor()
+    cur.execute(
+        &#34;SELECT * FROM signatures WHERE version=?\
+        AND ittl=? AND olen=? AND mss=? AND wsize=?\
+        AND scale=? AND olayout=? AND pclass=?&#34;,
+        [
+            signature_options.version,
+            signature_options.ittl,
+            signature_options.olen,
+            signature_options.mss,
+            signature_options.window_size,
+            signature_options.scale,
+            signature_options.olayout,
+            signature_options.pclass
+            ]
+        )
+    signature_matches = cur.fetchall()
+    if len(signature_matches) == 0:
+        signature_matches = None
+    return signature_matches</code></pre>
+</details>
+</dd>
+<dt id="utils.Matching.sig_match_fourty"><code class="name flex">
+<span>def <span class="ident">sig_match_fourty</span></span>(<span>conn, signature_options)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Select 40%</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def sig_match_fourty(conn, signature_options):
+    &#39;&#39;&#39;Select 40%&#39;&#39;&#39;
+    cur = conn.cursor()
+    cur.execute(
+        &#34;SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=? AND olayout=?&#34;,
+        [
+            signature_options.version,
+            signature_options.ittl,
+            signature_options.olen,
+            signature_options.olayout]
+        )
+    signature_matches = cur.fetchall()
+    if len(signature_matches) == 0:
+        signature_matches = None
+    return signature_matches</code></pre>
+</details>
+</dd>
+<dt id="utils.Matching.sig_match_one"><code class="name flex">
+<span>def <span class="ident">sig_match_one</span></span>(<span>conn, sig_obj)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Select 100%</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def sig_match_one(conn, sig_obj):
+    &#39;&#39;&#39;Select 100%&#39;&#39;&#39;
+    cur = conn.cursor()
+    cur.execute(
+        &#34;SELECT * FROM signatures WHERE version=? AND ittl=?\
+        AND olen=? AND mss=? AND wsize=? AND scale=?\
+        AND olayout=? AND quirks=? AND pclass=?&#34;,
+        [sig_obj.version, sig_obj.ittl, sig_obj.olen, sig_obj.mss,\
+        sig_obj.window_size,sig_obj.scale, sig_obj.olayout,\
+        sig_obj.quirk, sig_obj.pclass]
+        )
+    signature_matches = cur.fetchall()
+    if len(signature_matches) == 0:
+        signature_matches = None
+    return signature_matches</code></pre>
+</details>
+</dd>
+<dt id="utils.Matching.sig_match_sixty"><code class="name flex">
+<span>def <span class="ident">sig_match_sixty</span></span>(<span>conn, signature_options)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Select 60%</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def sig_match_sixty(conn, signature_options):
+    &#39;&#39;&#39;Select 60%&#39;&#39;&#39;
+    cur = conn.cursor()
+    cur.execute(
+        &#34;SELECT * FROM signatures WHERE version=?\
+        AND ittl=? AND olen=? AND wsize=?\
+        AND scale=? AND olayout=?&#34;,
+            [
+            signature_options.version,
+            signature_options.ittl,
+            signature_options.olen,
+            signature_options.window_size,
+            signature_options.scale,
+            signature_options.olayout
+            ]
+        )
+    signature_matches = cur.fetchall()
+    if len(signature_matches) == 0:
+        signature_matches = None
+    return signature_matches</code></pre>
+</details>
+</dd>
+<dt id="utils.Matching.sig_match_twenty"><code class="name flex">
+<span>def <span class="ident">sig_match_twenty</span></span>(<span>conn, signature_options)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Select 20%</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def sig_match_twenty(conn, signature_options):
+    &#39;&#39;&#39;Select 20%&#39;&#39;&#39;
+    cur = conn.cursor()
+    cur.execute(
+        &#34;SELECT * FROM signatures WHERE version=? AND ittl=? AND olen=?&#34;,
+        [signature_options.version, signature_options.ittl, signature_options.olen]
+        )
+    signature_matches = cur.fetchall()
+    if len(signature_matches) == 0:
+        signature_matches = None
+    return signature_matches</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="utils.PassiveData"><code class="flex name class">
+<span>class <span class="ident">PassiveData</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>A class filled with static methods that interacts with the sqlite database.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PassiveData:
+    &#34;&#34;&#34;
+    A class filled with static methods that interacts with the sqlite database.
+    &#34;&#34;&#34;
+
+    @staticmethod
+    def test_github_con():
+        &#39;&#39;&#39;Tests Internet Connection to Github.com&#39;&#39;&#39;
+        with contextlib.closing(urllib.request.urlopen(&#34;https://www.github.com&#34;)) as response:
+            return bool(response.getcode() == 200)
+
+
+    @staticmethod
+    def create_con():
+        &#39;&#39;&#39;Create Database Connection&#39;&#39;&#39;
+        return sqlite3.connect(&#39;signature.db&#39;)
+
+
+    @staticmethod
+    def setup_db():
+        &#39;&#39;&#39;Create Sqlite3 DB with all required tables&#39;&#39;&#39;
+        if exists(&#39;signature.db&#39;):
+            pass
+        else:
+            with open(&#39;signature.db&#39;, &#39;x&#39;, encoding=&#39;utf-8&#39;) as _:
+                pass
+            conn = sqlite3.connect(&#39;signature.db&#39;)
+            # Create Signatures Table
+            conn.execute(&#39;&#39;&#39;CREATE TABLE &#34;signatures&#34; (
+                &#34;id&#34;    INTEGER NOT NULL UNIQUE,
+                &#34;acid&#34;  INTEGER UNIQUE,
+                &#34;platform&#34;  TEXT,
+            &#34;tcp_flag&#34;  TEXT,
+                &#34;version&#34;       TEXT NOT NULL,
+                &#34;ittl&#34;  TEXT,
+                &#34;olen&#34;  TEXT,
+                &#34;mss&#34;   TEXT,
+                &#34;wsize&#34; TEXT,
+                &#34;scale&#34; TEXT,
+                &#34;olayout&#34;       TEXT,
+                &#34;quirks&#34;        TEXT,
+                &#34;pclass&#34;        TEXT,
+                &#34;comments&#34;      TEXT,
+                PRIMARY KEY(&#34;id&#34; AUTOINCREMENT)
+            );&#39;&#39;&#39;)
+            conn.close()
+        return True
+
+    @staticmethod
+    def signature_insert(conn, sig_obj):
+        &#39;&#39;&#39;Insert Statement for the Signature Table.&#39;&#39;&#39;
+        entry = conn.execute(&#39;SELECT id FROM signatures WHERE (acid=?)&#39;, (sig_obj.sig_acid,))
+        entry = entry.fetchone()
+        if entry is None:
+            conn.execute(&#34;insert into signatures\
+            (acid, platform, tcp_flag, version,\
+            ittl, olen, mss, wsize,\
+            scale, olayout, quirks, pclass,\
+            comments) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)&#34;,
+            (sig_obj.sig_acid, sig_obj.platform, sig_obj.sig_tcp_flag, sig_obj.version,\
+            sig_obj.ittl, sig_obj.olen, sig_obj.mss, sig_obj.wsize, sig_obj.scale,\
+            sig_obj.olayout, sig_obj.quirks, sig_obj.pclass, sig_obj.sig_comments))
+            conn.commit()
+        return True</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="utils.PassiveData.create_con"><code class="name flex">
+<span>def <span class="ident">create_con</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create Database Connection</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def create_con():
+    &#39;&#39;&#39;Create Database Connection&#39;&#39;&#39;
+    return sqlite3.connect(&#39;signature.db&#39;)</code></pre>
+</details>
+</dd>
+<dt id="utils.PassiveData.setup_db"><code class="name flex">
+<span>def <span class="ident">setup_db</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create Sqlite3 DB with all required tables</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def setup_db():
+    &#39;&#39;&#39;Create Sqlite3 DB with all required tables&#39;&#39;&#39;
+    if exists(&#39;signature.db&#39;):
+        pass
+    else:
+        with open(&#39;signature.db&#39;, &#39;x&#39;, encoding=&#39;utf-8&#39;) as _:
+            pass
+        conn = sqlite3.connect(&#39;signature.db&#39;)
+        # Create Signatures Table
+        conn.execute(&#39;&#39;&#39;CREATE TABLE &#34;signatures&#34; (
+            &#34;id&#34;    INTEGER NOT NULL UNIQUE,
+            &#34;acid&#34;  INTEGER UNIQUE,
+            &#34;platform&#34;  TEXT,
+        &#34;tcp_flag&#34;  TEXT,
+            &#34;version&#34;       TEXT NOT NULL,
+            &#34;ittl&#34;  TEXT,
+            &#34;olen&#34;  TEXT,
+            &#34;mss&#34;   TEXT,
+            &#34;wsize&#34; TEXT,
+            &#34;scale&#34; TEXT,
+            &#34;olayout&#34;       TEXT,
+            &#34;quirks&#34;        TEXT,
+            &#34;pclass&#34;        TEXT,
+            &#34;comments&#34;      TEXT,
+            PRIMARY KEY(&#34;id&#34; AUTOINCREMENT)
+        );&#39;&#39;&#39;)
+        conn.close()
+    return True</code></pre>
+</details>
+</dd>
+<dt id="utils.PassiveData.signature_insert"><code class="name flex">
+<span>def <span class="ident">signature_insert</span></span>(<span>conn, sig_obj)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Insert Statement for the Signature Table.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def signature_insert(conn, sig_obj):
+    &#39;&#39;&#39;Insert Statement for the Signature Table.&#39;&#39;&#39;
+    entry = conn.execute(&#39;SELECT id FROM signatures WHERE (acid=?)&#39;, (sig_obj.sig_acid,))
+    entry = entry.fetchone()
+    if entry is None:
+        conn.execute(&#34;insert into signatures\
+        (acid, platform, tcp_flag, version,\
+        ittl, olen, mss, wsize,\
+        scale, olayout, quirks, pclass,\
+        comments) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)&#34;,
+        (sig_obj.sig_acid, sig_obj.platform, sig_obj.sig_tcp_flag, sig_obj.version,\
+        sig_obj.ittl, sig_obj.olen, sig_obj.mss, sig_obj.wsize, sig_obj.scale,\
+        sig_obj.olayout, sig_obj.quirks, sig_obj.pclass, sig_obj.sig_comments))
+        conn.commit()
+    return True</code></pre>
+</details>
+</dd>
+<dt id="utils.PassiveData.test_github_con"><code class="name flex">
+<span>def <span class="ident">test_github_con</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Tests Internet Connection to Github.com</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def test_github_con():
+    &#39;&#39;&#39;Tests Internet Connection to Github.com&#39;&#39;&#39;
+    with contextlib.closing(urllib.request.urlopen(&#34;https://www.github.com&#34;)) as response:
+        return bool(response.getcode() == 200)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="utils.PullData"><code class="flex name class">
+<span>class <span class="ident">PullData</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>A class that contains a method that:
+* Loads a json file from github into memory.
+* Dumps the json into the sqlite database.</p>
+<p>The use of class methods is used so that class variables can be overrided for testing.
+&hellip;</p>
+<h2 id="class-variables">Class Variables</h2>
+<p>url : str
+URL of raw json file that contains TCP Signatures.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PullData:
+    &#34;&#34;&#34;
+    A class that contains a method that:
+        * Loads a json file from github into memory.
+        * Dumps the json into the sqlite database.
+
+    The use of class methods is used so that class variables can be overrided for testing.
+    ...
+
+    Class Variables
+    ----------
+    url : str
+        URL of raw json file that contains TCP Signatures.
+    &#34;&#34;&#34;
+
+
+    url = &#34;https://raw.githubusercontent.com/activecm/tcp-sig-json/main/tcp-sig.json&#34;
+
+    @classmethod
+    def import_data(cls):
+        &#34;&#34;&#34;Imports TCP Signatures from raw JSON file hosted on Github.&#34;&#34;&#34;
+        with urllib.request.urlopen(cls.url) as f_p:
+            data = json.load(f_p)
+            return data
+
+    @classmethod
+    def import_local_data(cls, json_file):
+        &#34;&#34;&#34;Imports TCP Signatures from local raw JSON file.&#34;&#34;&#34;
+        with open(json_file, encoding=&#39;utf-8&#39;) as f_p:
+            data = json.load(f_p)
+            return data</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="utils.PullData.url"><code class="name">var <span class="ident">url</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="utils.PullData.import_data"><code class="name flex">
+<span>def <span class="ident">import_data</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Imports TCP Signatures from raw JSON file hosted on Github.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def import_data(cls):
+    &#34;&#34;&#34;Imports TCP Signatures from raw JSON file hosted on Github.&#34;&#34;&#34;
+    with urllib.request.urlopen(cls.url) as f_p:
+        data = json.load(f_p)
+        return data</code></pre>
+</details>
+</dd>
+<dt id="utils.PullData.import_local_data"><code class="name flex">
+<span>def <span class="ident">import_local_data</span></span>(<span>json_file)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Imports TCP Signatures from local raw JSON file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def import_local_data(cls, json_file):
+    &#34;&#34;&#34;Imports TCP Signatures from local raw JSON file.&#34;&#34;&#34;
+    with open(json_file, encoding=&#39;utf-8&#39;) as f_p:
+        data = json.load(f_p)
+        return data</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="utils.QueryObject"><code class="flex name class">
+<span>class <span class="ident">QueryObject</span></span>
+<span>(</span><span>acid, platform, tcp_flag, comments, version, ittl, olen, mss, wsize, scale, olayout, quirks, pclass)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class QueryObject():
+    &#34;&#34;&#34;
+    Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                    acid, platform, tcp_flag, comments, version, ittl,
+                     olen, mss, wsize, scale, olayout, quirks, pclass
+                ):
+        self.sig_acid = acid
+        self.platform = platform
+        self.sig_tcp_flag = tcp_flag
+        self.sig_comments = comments
+        self.version = version
+        self.ittl = ittl
+        self.olen = olen
+        self.mss = mss
+        self.wsize = wsize
+        self.scale = scale
+        self.olayout = olayout
+        self.quirks = quirks
+        self.pclass = pclass
+
+    @property
+    def qstring(self):
+        &#39;&#39;&#39;Query String.&#39;&#39;&#39;
+        qstring = f&#34;{self.version}:{self.ittl}:{self.olen}\
+        :{self.mss}:{self.wsize}:{self.scale}\
+        :{self.olayout}:{self.quirks}:{self.pclass}&#34;
+        return qstring
+
+    def __str__(self):
+        return self.qstring</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="utils.QueryObject.qstring"><code class="name">var <span class="ident">qstring</span></code></dt>
+<dd>
+<div class="desc"><p>Query String.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def qstring(self):
+    &#39;&#39;&#39;Query String.&#39;&#39;&#39;
+    qstring = f&#34;{self.version}:{self.ittl}:{self.olen}\
+    :{self.mss}:{self.wsize}:{self.scale}\
+    :{self.olayout}:{self.quirks}:{self.pclass}&#34;
+    return qstring</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="utils.Quirk"><code class="flex name class">
+<span>class <span class="ident">Quirk</span></span>
+<span>(</span><span>packet)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates quirks - comma-delimited properties and quirks observed in IP or TCP headers.
+If a signature scoped to both IPv4 and IPv6 contains quirks valid
+for just one of these protocols, such quirks will be ignored for
+on packets using the other protocol. For example, any combination
+of 'df', 'id+', and 'id-' is always matched by any IPv6 packet.</p>
+<p>Takes a packet as an argument.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Quirk:
+    &#34;&#34;&#34;
+    Creates quirks - comma-delimited properties and quirks observed in IP or TCP headers.
+        If a signature scoped to both IPv4 and IPv6 contains quirks valid
+            for just one of these protocols, such quirks will be ignored for
+            on packets using the other protocol. For example, any combination
+            of &#39;df&#39;, &#39;id+&#39;, and &#39;id-&#39; is always matched by any IPv6 packet.
+    &#34;&#34;&#34;
+
+    def __init__(self, packet):
+        &#39;&#39;&#39;Takes a packet as an argument.&#39;&#39;&#39;
+        self.packet = packet
+
+    def __str__(self):
+        return self.qstring
+
+    @property
+    def df_flag(self):
+        &#39;&#39;&#39;Sets df attribute based on flag -
+            &#34;don&#39;t fragment&#34; set (probably PMTUD);
+            ignored for IPv6.
+        &#39;&#39;&#39;
+        version = self.packet.version
+        if version == 6:
+            df_flag = False
+        else:
+            if &#39;DF&#39; in self.packet[&#39;IP&#39;].flags.names:
+                df_flag = &#39;df&#39;
+        return df_flag
+
+    @property
+    def id_plus(self):
+        &#39;&#39;&#39;Sets id+ attribute based on flag and IPID -
+           DF set but IPID non-zero;
+           ignored for IPv6.
+        &#39;&#39;&#39;
+        version = self.packet.version
+        if version == 6:
+            id_plus = False
+        else:
+            id_plus = False
+            if self.packet[&#39;IP&#39;].flags ==&#39;DF&#39; and self.packet[&#39;IP&#39;].id != 0:
+                id_plus = &#39;id+&#39;
+        return id_plus
+
+    @property
+    def id_minus(self):
+        &#39;&#39;&#39;
+        Sets id- attribute based on flag and IPID -
+        DF not set but IPID is zero; ignored for IPv6.
+        &#39;&#39;&#39;
+        version = self.packet.version
+        if version == 6:
+            id_minus = False
+        else:
+            id_minus = False
+            if self.packet[&#39;IP&#39;].flags ==&#39;DF&#39; and self.packet[&#39;IP&#39;].id == 0:
+                id_minus = &#39;id-&#39;
+        return id_minus
+
+    @property
+    def ecn(self):
+        &#39;&#39;&#39;Sets ecn attribute - explicit congestion notification support.&#39;&#39;&#39;
+        ecn = False
+        if &#39;E&#39; in self.packet[&#39;TCP&#39;].flags:
+            ecn = &#39;ecn&#39;
+        return ecn
+
+    @property
+    def zero_plus(self):
+        &#39;&#39;&#39;Sets 0+ Attribute -  &#34;must be zero&#34; field not zero; ignored for IPv6.&#39;&#39;&#39;
+        version = self.packet.version
+        if version == 6:
+            zero_plus = False
+        else:
+            zero_plus = False
+            if self.packet.reserved != 0:
+                zero_plus = &#39;0+&#39;
+        return zero_plus
+
+    @property
+    def flow(self):
+        &#39;&#39;&#39;Sets flow Attribute - non-zero IPv6 flow ID; ignored for IPv4.&#39;&#39;&#39;
+        #TODO IPv6 support
+        flow = False
+        return flow
+
+    @property
+    def seq_minus(self):
+        &#39;&#39;&#39;Sets seq- attribute - sequence number is zero.&#39;&#39;&#39;
+        seq_minus = False
+        if self.packet[&#39;TCP&#39;].seq == 0:
+            seq_minus = &#39;seq-&#39;
+        return seq_minus
+
+    @property
+    def ack_plus(self):
+        &#39;&#39;&#39;Sets ack+ - ACK number is non-zero, but ACK flag not set.&#39;&#39;&#39;
+        ack_plus = False
+        if self.packet[&#39;TCP&#39;].ack != 0:
+            ack_plus = &#39;ack+&#39;
+        return ack_plus
+
+    @property
+    def ack_minus(self):
+        &#39;&#39;&#39;Sets ack- - ACK number is zero, but ACK flag set.&#39;&#39;&#39;
+        ack_minus = False
+        if self.packet[&#39;TCP&#39;].ack == 0:
+            ack_minus = &#39;ack-&#39;
+        return ack_minus
+
+    @property
+    def uptr_plus(self):
+        &#39;&#39;&#39;Sets uptr+ attribute - URG pointer is non-zero, but URG flag not set.&#39;&#39;&#39;
+        uptr_plus = &#39;uptr+&#39;
+        return uptr_plus
+
+    @property
+    def urgf_plus(self):
+        &#39;&#39;&#39;Sets urgf+ attribute - URG flag used.&#39;&#39;&#39;
+        urgf_plus = False
+        if &#39;URG&#39; in self.packet[&#39;IP&#39;].flags:
+            urgf_plus = &#39;urgf+&#39;
+        return urgf_plus
+
+    @property
+    def pushf_plus(self):
+        &#39;&#39;&#39;Sets pushf+ attribute - PUSH flag used.&#39;&#39;&#39;
+        pushf_plus = False
+        if &#39;PUSH&#39; in self.packet[&#39;IP&#39;].flags:
+            pushf_plus = &#39;pushf+&#39;
+        return pushf_plus
+
+    @property
+    def ts1_minus(self):
+        &#39;&#39;&#39;Sets ts1- attribute - own timestamp specified as zero.&#39;&#39;&#39;
+        ts1_minus = False
+        try:
+            ts1 = dict(self.packet[&#39;TCP&#39;].options)
+            if ts1[&#39;Timestamp&#39;][0] == 0:
+                ts1_minus = &#39;T0&#39;
+        except TypeError:
+            pass
+        except KeyError:
+            pass
+        return ts1_minus
+
+    @property
+    def ts2_plus(self):
+        &#39;&#39;&#39;Sets ts2+ attribute - non-zero peer timestamp on initial SYN.&#39;&#39;&#39;
+        ts2_plus = False
+        try:
+            ts2 = dict(self.packet[&#39;TCP&#39;].options)
+            if ts2[&#39;Timestamp&#39;][1] != 0:
+                ts2_plus = &#39;T&#39;
+        except TypeError:
+            pass
+        except KeyError:
+            pass
+        return ts2_plus
+
+    #TODO
+    @property
+    def opt_plus(self):
+        &#39;&#39;&#39;Sets opt+ attribute - trailing non-zero data in options segment.&#39;&#39;&#39;
+        opt_plus = False
+        return opt_plus
+
+    @property
+    def exws(self):
+        &#39;&#39;&#39;Sets exws attribute - excessive window scaling factor (&gt; 14).&#39;&#39;&#39;
+        try:
+            exws = dict(self.packet[&#39;TCP&#39;].options)
+        except TypeError:
+            exws = False
+        except KeyError:
+            exws = False
+        if exws is not False:
+            try:
+                exws = exws[&#39;WScale&#39;] &gt;= 14
+            except TypeError:
+                exws = False
+            except KeyError:
+                exws = False
+        return exws
+
+    #TODO
+    @property
+    def bad(self):
+        &#39;&#39;&#39;Sets bad attribute - malformed TCP options.&#39;&#39;&#39;
+        bad = isinstance(self.packet[&#39;TCP&#39;].options, list)
+        return bad
+
+    @property
+    def qstring(self):
+        &#39;&#39;&#39;Looks at all attributes and makes quirks.&#39;&#39;&#39;
+        items = [
+                self.df_flag, self.id_plus, self.id_minus,
+                self.ecn, self.zero_plus, self.flow,
+                self.seq_minus, self.ack_plus, self.ack_minus,
+                self.uptr_plus, self.pushf_plus, self.ts1_minus,
+                self.ts2_plus, self.opt_plus, self.exws,
+                self.bad
+                ]
+        quirks = [item for item in items if not isinstance(item, bool)]
+        quirks = &#34;,&#34;.join(quirks)
+        return quirks</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="utils.Quirk.ack_minus"><code class="name">var <span class="ident">ack_minus</span></code></dt>
+<dd>
+<div class="desc"><p>Sets ack- - ACK number is zero, but ACK flag set.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def ack_minus(self):
+    &#39;&#39;&#39;Sets ack- - ACK number is zero, but ACK flag set.&#39;&#39;&#39;
+    ack_minus = False
+    if self.packet[&#39;TCP&#39;].ack == 0:
+        ack_minus = &#39;ack-&#39;
+    return ack_minus</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.ack_plus"><code class="name">var <span class="ident">ack_plus</span></code></dt>
+<dd>
+<div class="desc"><p>Sets ack+ - ACK number is non-zero, but ACK flag not set.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def ack_plus(self):
+    &#39;&#39;&#39;Sets ack+ - ACK number is non-zero, but ACK flag not set.&#39;&#39;&#39;
+    ack_plus = False
+    if self.packet[&#39;TCP&#39;].ack != 0:
+        ack_plus = &#39;ack+&#39;
+    return ack_plus</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.bad"><code class="name">var <span class="ident">bad</span></code></dt>
+<dd>
+<div class="desc"><p>Sets bad attribute - malformed TCP options.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def bad(self):
+    &#39;&#39;&#39;Sets bad attribute - malformed TCP options.&#39;&#39;&#39;
+    bad = isinstance(self.packet[&#39;TCP&#39;].options, list)
+    return bad</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.df_flag"><code class="name">var <span class="ident">df_flag</span></code></dt>
+<dd>
+<div class="desc"><p>Sets df attribute based on flag -
+"don't fragment" set (probably PMTUD);
+ignored for IPv6.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def df_flag(self):
+    &#39;&#39;&#39;Sets df attribute based on flag -
+        &#34;don&#39;t fragment&#34; set (probably PMTUD);
+        ignored for IPv6.
+    &#39;&#39;&#39;
+    version = self.packet.version
+    if version == 6:
+        df_flag = False
+    else:
+        if &#39;DF&#39; in self.packet[&#39;IP&#39;].flags.names:
+            df_flag = &#39;df&#39;
+    return df_flag</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.ecn"><code class="name">var <span class="ident">ecn</span></code></dt>
+<dd>
+<div class="desc"><p>Sets ecn attribute - explicit congestion notification support.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def ecn(self):
+    &#39;&#39;&#39;Sets ecn attribute - explicit congestion notification support.&#39;&#39;&#39;
+    ecn = False
+    if &#39;E&#39; in self.packet[&#39;TCP&#39;].flags:
+        ecn = &#39;ecn&#39;
+    return ecn</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.exws"><code class="name">var <span class="ident">exws</span></code></dt>
+<dd>
+<div class="desc"><p>Sets exws attribute - excessive window scaling factor (&gt; 14).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def exws(self):
+    &#39;&#39;&#39;Sets exws attribute - excessive window scaling factor (&gt; 14).&#39;&#39;&#39;
+    try:
+        exws = dict(self.packet[&#39;TCP&#39;].options)
+    except TypeError:
+        exws = False
+    except KeyError:
+        exws = False
+    if exws is not False:
+        try:
+            exws = exws[&#39;WScale&#39;] &gt;= 14
+        except TypeError:
+            exws = False
+        except KeyError:
+            exws = False
+    return exws</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.flow"><code class="name">var <span class="ident">flow</span></code></dt>
+<dd>
+<div class="desc"><p>Sets flow Attribute - non-zero IPv6 flow ID; ignored for IPv4.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def flow(self):
+    &#39;&#39;&#39;Sets flow Attribute - non-zero IPv6 flow ID; ignored for IPv4.&#39;&#39;&#39;
+    #TODO IPv6 support
+    flow = False
+    return flow</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.id_minus"><code class="name">var <span class="ident">id_minus</span></code></dt>
+<dd>
+<div class="desc"><p>Sets id- attribute based on flag and IPID -
+DF not set but IPID is zero; ignored for IPv6.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id_minus(self):
+    &#39;&#39;&#39;
+    Sets id- attribute based on flag and IPID -
+    DF not set but IPID is zero; ignored for IPv6.
+    &#39;&#39;&#39;
+    version = self.packet.version
+    if version == 6:
+        id_minus = False
+    else:
+        id_minus = False
+        if self.packet[&#39;IP&#39;].flags ==&#39;DF&#39; and self.packet[&#39;IP&#39;].id == 0:
+            id_minus = &#39;id-&#39;
+    return id_minus</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.id_plus"><code class="name">var <span class="ident">id_plus</span></code></dt>
+<dd>
+<div class="desc"><p>Sets id+ attribute based on flag and IPID -
+DF set but IPID non-zero;
+ignored for IPv6.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id_plus(self):
+    &#39;&#39;&#39;Sets id+ attribute based on flag and IPID -
+       DF set but IPID non-zero;
+       ignored for IPv6.
+    &#39;&#39;&#39;
+    version = self.packet.version
+    if version == 6:
+        id_plus = False
+    else:
+        id_plus = False
+        if self.packet[&#39;IP&#39;].flags ==&#39;DF&#39; and self.packet[&#39;IP&#39;].id != 0:
+            id_plus = &#39;id+&#39;
+    return id_plus</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.opt_plus"><code class="name">var <span class="ident">opt_plus</span></code></dt>
+<dd>
+<div class="desc"><p>Sets opt+ attribute - trailing non-zero data in options segment.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def opt_plus(self):
+    &#39;&#39;&#39;Sets opt+ attribute - trailing non-zero data in options segment.&#39;&#39;&#39;
+    opt_plus = False
+    return opt_plus</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.pushf_plus"><code class="name">var <span class="ident">pushf_plus</span></code></dt>
+<dd>
+<div class="desc"><p>Sets pushf+ attribute - PUSH flag used.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def pushf_plus(self):
+    &#39;&#39;&#39;Sets pushf+ attribute - PUSH flag used.&#39;&#39;&#39;
+    pushf_plus = False
+    if &#39;PUSH&#39; in self.packet[&#39;IP&#39;].flags:
+        pushf_plus = &#39;pushf+&#39;
+    return pushf_plus</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.qstring"><code class="name">var <span class="ident">qstring</span></code></dt>
+<dd>
+<div class="desc"><p>Looks at all attributes and makes quirks.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def qstring(self):
+    &#39;&#39;&#39;Looks at all attributes and makes quirks.&#39;&#39;&#39;
+    items = [
+            self.df_flag, self.id_plus, self.id_minus,
+            self.ecn, self.zero_plus, self.flow,
+            self.seq_minus, self.ack_plus, self.ack_minus,
+            self.uptr_plus, self.pushf_plus, self.ts1_minus,
+            self.ts2_plus, self.opt_plus, self.exws,
+            self.bad
+            ]
+    quirks = [item for item in items if not isinstance(item, bool)]
+    quirks = &#34;,&#34;.join(quirks)
+    return quirks</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.seq_minus"><code class="name">var <span class="ident">seq_minus</span></code></dt>
+<dd>
+<div class="desc"><p>Sets seq- attribute - sequence number is zero.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def seq_minus(self):
+    &#39;&#39;&#39;Sets seq- attribute - sequence number is zero.&#39;&#39;&#39;
+    seq_minus = False
+    if self.packet[&#39;TCP&#39;].seq == 0:
+        seq_minus = &#39;seq-&#39;
+    return seq_minus</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.ts1_minus"><code class="name">var <span class="ident">ts1_minus</span></code></dt>
+<dd>
+<div class="desc"><p>Sets ts1- attribute - own timestamp specified as zero.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def ts1_minus(self):
+    &#39;&#39;&#39;Sets ts1- attribute - own timestamp specified as zero.&#39;&#39;&#39;
+    ts1_minus = False
+    try:
+        ts1 = dict(self.packet[&#39;TCP&#39;].options)
+        if ts1[&#39;Timestamp&#39;][0] == 0:
+            ts1_minus = &#39;T0&#39;
+    except TypeError:
+        pass
+    except KeyError:
+        pass
+    return ts1_minus</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.ts2_plus"><code class="name">var <span class="ident">ts2_plus</span></code></dt>
+<dd>
+<div class="desc"><p>Sets ts2+ attribute - non-zero peer timestamp on initial SYN.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def ts2_plus(self):
+    &#39;&#39;&#39;Sets ts2+ attribute - non-zero peer timestamp on initial SYN.&#39;&#39;&#39;
+    ts2_plus = False
+    try:
+        ts2 = dict(self.packet[&#39;TCP&#39;].options)
+        if ts2[&#39;Timestamp&#39;][1] != 0:
+            ts2_plus = &#39;T&#39;
+    except TypeError:
+        pass
+    except KeyError:
+        pass
+    return ts2_plus</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.uptr_plus"><code class="name">var <span class="ident">uptr_plus</span></code></dt>
+<dd>
+<div class="desc"><p>Sets uptr+ attribute - URG pointer is non-zero, but URG flag not set.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def uptr_plus(self):
+    &#39;&#39;&#39;Sets uptr+ attribute - URG pointer is non-zero, but URG flag not set.&#39;&#39;&#39;
+    uptr_plus = &#39;uptr+&#39;
+    return uptr_plus</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.urgf_plus"><code class="name">var <span class="ident">urgf_plus</span></code></dt>
+<dd>
+<div class="desc"><p>Sets urgf+ attribute - URG flag used.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def urgf_plus(self):
+    &#39;&#39;&#39;Sets urgf+ attribute - URG flag used.&#39;&#39;&#39;
+    urgf_plus = False
+    if &#39;URG&#39; in self.packet[&#39;IP&#39;].flags:
+        urgf_plus = &#39;urgf+&#39;
+    return urgf_plus</code></pre>
+</details>
+</dd>
+<dt id="utils.Quirk.zero_plus"><code class="name">var <span class="ident">zero_plus</span></code></dt>
+<dd>
+<div class="desc"><p>Sets 0+ Attribute -
+"must be zero" field not zero; ignored for IPv6.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def zero_plus(self):
+    &#39;&#39;&#39;Sets 0+ Attribute -  &#34;must be zero&#34; field not zero; ignored for IPv6.&#39;&#39;&#39;
+    version = self.packet.version
+    if version == 6:
+        zero_plus = False
+    else:
+        zero_plus = False
+        if self.packet.reserved != 0:
+            zero_plus = &#39;0+&#39;
+    return zero_plus</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="utils.Signature"><code class="flex name class">
+<span>class <span class="ident">Signature</span></span>
+<span>(</span><span>packet)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Signature:
+    &#34;&#34;&#34;
+    Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.
+    &#34;&#34;&#34;
+    def __init__(self, packet):
+        self.packet = packet
+
+    @staticmethod
+    def process_options(option: list) -&gt; str:
+        &#39;&#39;&#39;Static method for processing options.&#39;&#39;&#39;
+        option_zero = option[0]
+        option_one = option[1]
+        if option_zero == &#39;MSS&#39; and option_one in [0, &#39;&#39;]:
+            options_output = &#39;M*&#39;
+        elif option_zero == &#39;MSS&#39; and option_one &gt; 1:
+            options_output = &#39;M&#39; + str(option_one)
+        elif option_zero == &#39;NOP&#39;:
+            options_output = &#39;N&#39;
+        elif option_zero == &#39;WScale&#39;:
+            options_output= &#39;W&#39; + str(option_one)
+        elif option_zero == &#39;SAckOK&#39;:
+            options_output = &#39;S&#39;
+        elif option_zero == &#39;EOL&#39;:
+            options_output = &#39;E&#39;
+        else:
+            # TODO
+            # The p0f docs state:
+            #  ?n     - unknown option ID n
+            # What does that even mean?
+            # Then to make things even more vague
+            # some random documentation on cert.org states:
+            #  ?n       - unrecognized option number n.
+            # Soooooo, unrecognized != unknown
+            # I came up with the following and the output does not look correct. \
+            # We went with literally returning &#39;?n&#39;
+            # return &#39;?&#39; + str(option[1])
+            options_output = &#39;?n&#39;
+        return options_output
+
+    @property
+    def version(self):
+        &#39;&#39;&#39;Signature for IPv4 (&#39;4&#39;), IPv6 (&#39;6&#39;), or both (&#39;*&#39;).&#39;&#39;&#39;
+        version = self.packet.version
+        return str(version)
+
+    @property
+    def ittl(self):
+        &#39;&#39;&#39;
+        Initial TTL used by the OS. Almost all operating systems use
+        64, 128, or 255; ancient versions of Windows sometimes used
+        32, and several obscure systems sometimes resort to odd values
+        such as 60.
+
+        NEW SIGNATURES: P0f will usually suggest something, using the
+        format of &#39;observed_ttl+distance&#39; (e.g. 54+10). Consider using
+        traceroute to check that the distance is accurate, then sum up
+        the values. If initial TTL can&#39;t be guessed, p0f will output
+        &#39;nnn+?&#39;, and you need to use traceroute to estimate the &#39;?&#39;.
+
+        A handful of userspace tools will generate random TTLs. In these
+        cases, determine maximum initial TTL and then add a - suffix to
+        the value to avoid confusion.
+        &#39;&#39;&#39;
+        if self.version == &#39;4&#39;:
+            ittl = self.packet[&#39;IP&#39;].ttl
+        elif self.version == &#39;6&#39;:
+            ittl = self.packet[&#39;IPv6&#39;].ttl
+        else:
+            ittl = &#39;&#39;
+        return ittl
+
+    @property
+    def olen(self):
+        &#39;&#39;&#39;
+        Length of IPv4 options or IPv6 extension headers. Usually zero
+        for normal IPv4 traffic; always zero for IPv6 due to the
+        limitations of libpcap.
+        &#39;&#39;&#39;
+        if self.version == &#39;4&#39;:
+            olen = len(self.packet[&#39;IP&#39;].options)
+        elif self.version == &#39;6&#39;:
+            olen = len(self.packet[&#39;IPv6&#39;].options)
+        else:
+            olen = &#39;&#39;
+        return str(olen)
+
+    @property
+    def mss(self):
+        &#39;&#39;&#39;
+        maximum segment size, if specified in TCP options. Special value
+        of &#39;*&#39; can be used to denote that MSS varies depending on the
+        parameters of sender&#39;s network link, and should not be a part of
+        the signature. In this case, MSS will be used to guess the
+        type of network hookup according to the [mtu] rules.
+
+        NEW SIGNATURES: Use &#39;*&#39; for any commodity OSes where MSS is
+        around 1300 - 1500, unless you know for sure that it&#39;s fixed.
+        If the value is outside that range, you can probably copy it
+        literally.
+        &#39;&#39;&#39;
+        mss = dict(self.packet[&#39;TCP&#39;].options)
+        try:
+            return str(mss[&#39;MSS&#39;])
+        except KeyError:
+            return &#39;*&#39;
+
+    @property
+    def window_size(self):
+        &#39;&#39;&#39;
+        Window size. Can be expressed as a fixed value, but many
+        operating systems set it to a multiple of MSS or MTU, or a
+        multiple of some random integer. P0f automatically detects these
+        cases, and allows notation such as &#39;mss*4&#39;, &#39;mtu*4&#39;, or &#39;%8192&#39;
+        to be used. Wilcard (&#39;*&#39;) is possible too.
+        &#39;&#39;&#39;
+        window_size = self.packet[&#39;TCP&#39;].window
+        if self.mss != &#39;*&#39;:
+            if (self.packet[&#39;TCP&#39;].window / int(self.mss)).is_integer():
+                window_size = &#34;mss*&#34; + str(int(self.packet[&#39;TCP&#39;].window / int(self.mss)))
+        return str(window_size)
+
+    @property
+    def scale(self):
+        &#39;&#39;&#39;
+        Window scaling factor, if specified in TCP options. Fixed value
+        or &#39;*&#39;.
+        NEW SIGNATURES: Copy literally, unless the value varies randomly.
+        Many systems alter between 2 or 3 scaling factors, in which case,
+        it&#39;s better to have several &#39;sig&#39; lines, rather than a wildcard.
+        &#39;&#39;&#39;
+        options = dict(self.packet[&#39;TCP&#39;].options)
+        try:
+            scale = options[&#39;WScale&#39;]
+        except TypeError:
+            scale = &#39;*&#39;
+        except KeyError:
+            scale = &#39;*&#39;
+        return scale
+
+    @property
+    def olayout(self):
+        &#39;&#39;&#39;
+        comma-delimited layout and ordering of TCP options, if any. This
+        is one of the most valuable TCP fingerprinting signals. Supported
+        values.
+        &#39;&#39;&#39;
+        if len(self.packet[&#39;TCP&#39;].options) == 0:
+            olayout = &#39;*&#39;
+        else:
+            loo = []
+            for i in self.packet[&#39;TCP&#39;].options:
+                loo.append(Signature.process_options(i))
+            olayout = &#39;,&#39;.join(map(str, loo))
+        return olayout
+
+    @property
+    def quirk(self):
+        &#39;&#39;&#39;
+        Comma-delimited properties and quirks observed in IP or TCP
+        headers.
+        &#39;&#39;&#39;
+        quirks = Quirk(self.packet)
+        return str(quirks)
+
+    @property
+    def pclass(self):
+        &#39;&#39;&#39;
+        Payload size classification: &#39;0&#39; for zero, &#39;+&#39; for non-zero,
+        &#39;*&#39; for any. The packets we fingerprint right now normally have
+        no payloads, but some corner cases exist.
+        &#39;&#39;&#39;
+        pclass = len(self.packet[&#39;TCP&#39;].payload)
+        if pclass != 0:
+            pclass = &#39;+&#39;
+        return str(pclass)
+
+    @property
+    def qstring(self):
+        &#39;&#39;&#39;Create Query String&#39;&#39;&#39;
+        qstring = f&#34;{self.version}:&#34;\
+        + f&#34;{self.ittl}:{self.olen}:{self.mss}:&#34;\
+        + f&#34;{self.window_size}:{self.scale}:&#34;\
+        + f&#34;{self.olayout}:{self.quirk}:{self.pclass}&#34;
+        return qstring
+
+    def __str__(self):
+        return self.qstring</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="utils.Signature.process_options"><code class="name flex">
+<span>def <span class="ident">process_options</span></span>(<span>option: list) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Static method for processing options.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def process_options(option: list) -&gt; str:
+    &#39;&#39;&#39;Static method for processing options.&#39;&#39;&#39;
+    option_zero = option[0]
+    option_one = option[1]
+    if option_zero == &#39;MSS&#39; and option_one in [0, &#39;&#39;]:
+        options_output = &#39;M*&#39;
+    elif option_zero == &#39;MSS&#39; and option_one &gt; 1:
+        options_output = &#39;M&#39; + str(option_one)
+    elif option_zero == &#39;NOP&#39;:
+        options_output = &#39;N&#39;
+    elif option_zero == &#39;WScale&#39;:
+        options_output= &#39;W&#39; + str(option_one)
+    elif option_zero == &#39;SAckOK&#39;:
+        options_output = &#39;S&#39;
+    elif option_zero == &#39;EOL&#39;:
+        options_output = &#39;E&#39;
+    else:
+        # TODO
+        # The p0f docs state:
+        #  ?n     - unknown option ID n
+        # What does that even mean?
+        # Then to make things even more vague
+        # some random documentation on cert.org states:
+        #  ?n       - unrecognized option number n.
+        # Soooooo, unrecognized != unknown
+        # I came up with the following and the output does not look correct. \
+        # We went with literally returning &#39;?n&#39;
+        # return &#39;?&#39; + str(option[1])
+        options_output = &#39;?n&#39;
+    return options_output</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="utils.Signature.ittl"><code class="name">var <span class="ident">ittl</span></code></dt>
+<dd>
+<div class="desc"><p>Initial TTL used by the OS. Almost all operating systems use
+64, 128, or 255; ancient versions of Windows sometimes used
+32, and several obscure systems sometimes resort to odd values
+such as 60.</p>
+<p>NEW SIGNATURES: P0f will usually suggest something, using the
+format of 'observed_ttl+distance' (e.g. 54+10). Consider using
+traceroute to check that the distance is accurate, then sum up
+the values. If initial TTL can't be guessed, p0f will output
+'nnn+?', and you need to use traceroute to estimate the '?'.</p>
+<p>A handful of userspace tools will generate random TTLs. In these
+cases, determine maximum initial TTL and then add a - suffix to
+the value to avoid confusion.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def ittl(self):
+    &#39;&#39;&#39;
+    Initial TTL used by the OS. Almost all operating systems use
+    64, 128, or 255; ancient versions of Windows sometimes used
+    32, and several obscure systems sometimes resort to odd values
+    such as 60.
+
+    NEW SIGNATURES: P0f will usually suggest something, using the
+    format of &#39;observed_ttl+distance&#39; (e.g. 54+10). Consider using
+    traceroute to check that the distance is accurate, then sum up
+    the values. If initial TTL can&#39;t be guessed, p0f will output
+    &#39;nnn+?&#39;, and you need to use traceroute to estimate the &#39;?&#39;.
+
+    A handful of userspace tools will generate random TTLs. In these
+    cases, determine maximum initial TTL and then add a - suffix to
+    the value to avoid confusion.
+    &#39;&#39;&#39;
+    if self.version == &#39;4&#39;:
+        ittl = self.packet[&#39;IP&#39;].ttl
+    elif self.version == &#39;6&#39;:
+        ittl = self.packet[&#39;IPv6&#39;].ttl
+    else:
+        ittl = &#39;&#39;
+    return ittl</code></pre>
+</details>
+</dd>
+<dt id="utils.Signature.mss"><code class="name">var <span class="ident">mss</span></code></dt>
+<dd>
+<div class="desc"><p>maximum segment size, if specified in TCP options. Special value
+of '*' can be used to denote that MSS varies depending on the
+parameters of sender's network link, and should not be a part of
+the signature. In this case, MSS will be used to guess the
+type of network hookup according to the [mtu] rules.</p>
+<p>NEW SIGNATURES: Use '*' for any commodity OSes where MSS is
+around 1300 - 1500, unless you know for sure that it's fixed.
+If the value is outside that range, you can probably copy it
+literally.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def mss(self):
+    &#39;&#39;&#39;
+    maximum segment size, if specified in TCP options. Special value
+    of &#39;*&#39; can be used to denote that MSS varies depending on the
+    parameters of sender&#39;s network link, and should not be a part of
+    the signature. In this case, MSS will be used to guess the
+    type of network hookup according to the [mtu] rules.
+
+    NEW SIGNATURES: Use &#39;*&#39; for any commodity OSes where MSS is
+    around 1300 - 1500, unless you know for sure that it&#39;s fixed.
+    If the value is outside that range, you can probably copy it
+    literally.
+    &#39;&#39;&#39;
+    mss = dict(self.packet[&#39;TCP&#39;].options)
+    try:
+        return str(mss[&#39;MSS&#39;])
+    except KeyError:
+        return &#39;*&#39;</code></pre>
+</details>
+</dd>
+<dt id="utils.Signature.olayout"><code class="name">var <span class="ident">olayout</span></code></dt>
+<dd>
+<div class="desc"><p>comma-delimited layout and ordering of TCP options, if any. This
+is one of the most valuable TCP fingerprinting signals. Supported
+values.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def olayout(self):
+    &#39;&#39;&#39;
+    comma-delimited layout and ordering of TCP options, if any. This
+    is one of the most valuable TCP fingerprinting signals. Supported
+    values.
+    &#39;&#39;&#39;
+    if len(self.packet[&#39;TCP&#39;].options) == 0:
+        olayout = &#39;*&#39;
+    else:
+        loo = []
+        for i in self.packet[&#39;TCP&#39;].options:
+            loo.append(Signature.process_options(i))
+        olayout = &#39;,&#39;.join(map(str, loo))
+    return olayout</code></pre>
+</details>
+</dd>
+<dt id="utils.Signature.olen"><code class="name">var <span class="ident">olen</span></code></dt>
+<dd>
+<div class="desc"><p>Length of IPv4 options or IPv6 extension headers. Usually zero
+for normal IPv4 traffic; always zero for IPv6 due to the
+limitations of libpcap.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def olen(self):
+    &#39;&#39;&#39;
+    Length of IPv4 options or IPv6 extension headers. Usually zero
+    for normal IPv4 traffic; always zero for IPv6 due to the
+    limitations of libpcap.
+    &#39;&#39;&#39;
+    if self.version == &#39;4&#39;:
+        olen = len(self.packet[&#39;IP&#39;].options)
+    elif self.version == &#39;6&#39;:
+        olen = len(self.packet[&#39;IPv6&#39;].options)
+    else:
+        olen = &#39;&#39;
+    return str(olen)</code></pre>
+</details>
+</dd>
+<dt id="utils.Signature.pclass"><code class="name">var <span class="ident">pclass</span></code></dt>
+<dd>
+<div class="desc"><p>Payload size classification: '0' for zero, '+' for non-zero,
+'*' for any. The packets we fingerprint right now normally have
+no payloads, but some corner cases exist.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def pclass(self):
+    &#39;&#39;&#39;
+    Payload size classification: &#39;0&#39; for zero, &#39;+&#39; for non-zero,
+    &#39;*&#39; for any. The packets we fingerprint right now normally have
+    no payloads, but some corner cases exist.
+    &#39;&#39;&#39;
+    pclass = len(self.packet[&#39;TCP&#39;].payload)
+    if pclass != 0:
+        pclass = &#39;+&#39;
+    return str(pclass)</code></pre>
+</details>
+</dd>
+<dt id="utils.Signature.qstring"><code class="name">var <span class="ident">qstring</span></code></dt>
+<dd>
+<div class="desc"><p>Create Query String</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def qstring(self):
+    &#39;&#39;&#39;Create Query String&#39;&#39;&#39;
+    qstring = f&#34;{self.version}:&#34;\
+    + f&#34;{self.ittl}:{self.olen}:{self.mss}:&#34;\
+    + f&#34;{self.window_size}:{self.scale}:&#34;\
+    + f&#34;{self.olayout}:{self.quirk}:{self.pclass}&#34;
+    return qstring</code></pre>
+</details>
+</dd>
+<dt id="utils.Signature.quirk"><code class="name">var <span class="ident">quirk</span></code></dt>
+<dd>
+<div class="desc"><p>Comma-delimited properties and quirks observed in IP or TCP
+headers.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def quirk(self):
+    &#39;&#39;&#39;
+    Comma-delimited properties and quirks observed in IP or TCP
+    headers.
+    &#39;&#39;&#39;
+    quirks = Quirk(self.packet)
+    return str(quirks)</code></pre>
+</details>
+</dd>
+<dt id="utils.Signature.scale"><code class="name">var <span class="ident">scale</span></code></dt>
+<dd>
+<div class="desc"><p>Window scaling factor, if specified in TCP options. Fixed value
+or '*'.
+NEW SIGNATURES: Copy literally, unless the value varies randomly.
+Many systems alter between 2 or 3 scaling factors, in which case,
+it's better to have several 'sig' lines, rather than a wildcard.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def scale(self):
+    &#39;&#39;&#39;
+    Window scaling factor, if specified in TCP options. Fixed value
+    or &#39;*&#39;.
+    NEW SIGNATURES: Copy literally, unless the value varies randomly.
+    Many systems alter between 2 or 3 scaling factors, in which case,
+    it&#39;s better to have several &#39;sig&#39; lines, rather than a wildcard.
+    &#39;&#39;&#39;
+    options = dict(self.packet[&#39;TCP&#39;].options)
+    try:
+        scale = options[&#39;WScale&#39;]
+    except TypeError:
+        scale = &#39;*&#39;
+    except KeyError:
+        scale = &#39;*&#39;
+    return scale</code></pre>
+</details>
+</dd>
+<dt id="utils.Signature.version"><code class="name">var <span class="ident">version</span></code></dt>
+<dd>
+<div class="desc"><p>Signature for IPv4 ('4'), IPv6 ('6'), or both ('*').</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def version(self):
+    &#39;&#39;&#39;Signature for IPv4 (&#39;4&#39;), IPv6 (&#39;6&#39;), or both (&#39;*&#39;).&#39;&#39;&#39;
+    version = self.packet.version
+    return str(version)</code></pre>
+</details>
+</dd>
+<dt id="utils.Signature.window_size"><code class="name">var <span class="ident">window_size</span></code></dt>
+<dd>
+<div class="desc"><p>Window size. Can be expressed as a fixed value, but many
+operating systems set it to a multiple of MSS or MTU, or a
+multiple of some random integer. P0f automatically detects these
+cases, and allows notation such as 'mss<em>4', 'mtu</em>4', or '%8192'
+to be used. Wilcard ('*') is possible too.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def window_size(self):
+    &#39;&#39;&#39;
+    Window size. Can be expressed as a fixed value, but many
+    operating systems set it to a multiple of MSS or MTU, or a
+    multiple of some random integer. P0f automatically detects these
+    cases, and allows notation such as &#39;mss*4&#39;, &#39;mtu*4&#39;, or &#39;%8192&#39;
+    to be used. Wilcard (&#39;*&#39;) is possible too.
+    &#39;&#39;&#39;
+    window_size = self.packet[&#39;TCP&#39;].window
+    if self.mss != &#39;*&#39;:
+        if (self.packet[&#39;TCP&#39;].window / int(self.mss)).is_integer():
+            window_size = &#34;mss*&#34; + str(int(self.packet[&#39;TCP&#39;].window / int(self.mss)))
+    return str(window_size)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="utils.TcpSig"><code class="flex name class">
+<span>class <span class="ident">TcpSig</span></span>
+<span>(</span><span>tcp_sig_obj)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TcpSig:
+    &#34;&#34;&#34;
+    Data mapping class that takes a TCP Signature object and inserts it into the sqlite database.
+    &#34;&#34;&#34;
+
+    def __init__(self, tcp_sig_obj):
+        self.sig_acid = tcp_sig_obj[&#39;acid&#39;]
+        self.platform = tcp_sig_obj[&#39;platform&#39;]
+        self.sig_tcp_flag = tcp_sig_obj[&#39;tcp_flag&#39;]
+        self.sig_comments = tcp_sig_obj[&#39;comments&#39;]
+        self.signature = dict(
+            zip(
+                [&#39;version&#39;, &#39;ittl&#39;, &#39;olen&#39;, &#39;mss&#39;, &#39;wsize&#39;, &#39;scale&#39;, &#39;olayout&#39;, &#39;quirks&#39;, &#39;pclass&#39;],
+                tcp_sig_obj[&#39;tcp_sig&#39;].split(&#39;:&#39;)
+                )
+            )
+        self.version = self.signature[&#39;version&#39;]
+        self.ittl = self.signature[&#39;ittl&#39;]
+        self.olen = self.signature[&#39;olen&#39;]
+        self.mss = self.signature[&#39;mss&#39;]
+        self.wsize = self.signature[&#39;wsize&#39;]
+        self.scale = self.signature[&#39;scale&#39;]
+        self.olayout = self.signature[&#39;olayout&#39;]
+        self.quirks = self.signature[&#39;quirks&#39;]
+        self.pclass = self.signature[&#39;pclass&#39;]
+
+    @property
+    def qstring(self):
+        &#34;&#34;&#34;QString.&#34;&#34;&#34;
+        qstring = f&#34;{self.version}:\
+            {self.ittl}:{self.olen}:{self.mss}:\
+            {self.wsize}:{self.scale}:{self.olayout}:\
+            {self.quirks}:{self.pclass}&#34;
+        return qstring
+
+    def __str__(self):
+        return self.qstring</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="utils.TcpSig.qstring"><code class="name">var <span class="ident">qstring</span></code></dt>
+<dd>
+<div class="desc"><p>QString.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def qstring(self):
+    &#34;&#34;&#34;QString.&#34;&#34;&#34;
+    qstring = f&#34;{self.version}:\
+        {self.ittl}:{self.olen}:{self.mss}:\
+        {self.wsize}:{self.scale}:{self.olayout}:\
+        {self.quirks}:{self.pclass}&#34;
+    return qstring</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="utils.Matching" href="#utils.Matching">Matching</a></code></h4>
+<ul class="two-column">
+<li><code><a title="utils.Matching.create_con" href="#utils.Matching.create_con">create_con</a></code></li>
+<li><code><a title="utils.Matching.match" href="#utils.Matching.match">match</a></code></li>
+<li><code><a title="utils.Matching.sig_match_eighty" href="#utils.Matching.sig_match_eighty">sig_match_eighty</a></code></li>
+<li><code><a title="utils.Matching.sig_match_fourty" href="#utils.Matching.sig_match_fourty">sig_match_fourty</a></code></li>
+<li><code><a title="utils.Matching.sig_match_one" href="#utils.Matching.sig_match_one">sig_match_one</a></code></li>
+<li><code><a title="utils.Matching.sig_match_sixty" href="#utils.Matching.sig_match_sixty">sig_match_sixty</a></code></li>
+<li><code><a title="utils.Matching.sig_match_twenty" href="#utils.Matching.sig_match_twenty">sig_match_twenty</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="utils.PassiveData" href="#utils.PassiveData">PassiveData</a></code></h4>
+<ul class="">
+<li><code><a title="utils.PassiveData.create_con" href="#utils.PassiveData.create_con">create_con</a></code></li>
+<li><code><a title="utils.PassiveData.setup_db" href="#utils.PassiveData.setup_db">setup_db</a></code></li>
+<li><code><a title="utils.PassiveData.signature_insert" href="#utils.PassiveData.signature_insert">signature_insert</a></code></li>
+<li><code><a title="utils.PassiveData.test_github_con" href="#utils.PassiveData.test_github_con">test_github_con</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="utils.PullData" href="#utils.PullData">PullData</a></code></h4>
+<ul class="">
+<li><code><a title="utils.PullData.import_data" href="#utils.PullData.import_data">import_data</a></code></li>
+<li><code><a title="utils.PullData.import_local_data" href="#utils.PullData.import_local_data">import_local_data</a></code></li>
+<li><code><a title="utils.PullData.url" href="#utils.PullData.url">url</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="utils.QueryObject" href="#utils.QueryObject">QueryObject</a></code></h4>
+<ul class="">
+<li><code><a title="utils.QueryObject.qstring" href="#utils.QueryObject.qstring">qstring</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="utils.Quirk" href="#utils.Quirk">Quirk</a></code></h4>
+<ul class="two-column">
+<li><code><a title="utils.Quirk.ack_minus" href="#utils.Quirk.ack_minus">ack_minus</a></code></li>
+<li><code><a title="utils.Quirk.ack_plus" href="#utils.Quirk.ack_plus">ack_plus</a></code></li>
+<li><code><a title="utils.Quirk.bad" href="#utils.Quirk.bad">bad</a></code></li>
+<li><code><a title="utils.Quirk.df_flag" href="#utils.Quirk.df_flag">df_flag</a></code></li>
+<li><code><a title="utils.Quirk.ecn" href="#utils.Quirk.ecn">ecn</a></code></li>
+<li><code><a title="utils.Quirk.exws" href="#utils.Quirk.exws">exws</a></code></li>
+<li><code><a title="utils.Quirk.flow" href="#utils.Quirk.flow">flow</a></code></li>
+<li><code><a title="utils.Quirk.id_minus" href="#utils.Quirk.id_minus">id_minus</a></code></li>
+<li><code><a title="utils.Quirk.id_plus" href="#utils.Quirk.id_plus">id_plus</a></code></li>
+<li><code><a title="utils.Quirk.opt_plus" href="#utils.Quirk.opt_plus">opt_plus</a></code></li>
+<li><code><a title="utils.Quirk.pushf_plus" href="#utils.Quirk.pushf_plus">pushf_plus</a></code></li>
+<li><code><a title="utils.Quirk.qstring" href="#utils.Quirk.qstring">qstring</a></code></li>
+<li><code><a title="utils.Quirk.seq_minus" href="#utils.Quirk.seq_minus">seq_minus</a></code></li>
+<li><code><a title="utils.Quirk.ts1_minus" href="#utils.Quirk.ts1_minus">ts1_minus</a></code></li>
+<li><code><a title="utils.Quirk.ts2_plus" href="#utils.Quirk.ts2_plus">ts2_plus</a></code></li>
+<li><code><a title="utils.Quirk.uptr_plus" href="#utils.Quirk.uptr_plus">uptr_plus</a></code></li>
+<li><code><a title="utils.Quirk.urgf_plus" href="#utils.Quirk.urgf_plus">urgf_plus</a></code></li>
+<li><code><a title="utils.Quirk.zero_plus" href="#utils.Quirk.zero_plus">zero_plus</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="utils.Signature" href="#utils.Signature">Signature</a></code></h4>
+<ul class="two-column">
+<li><code><a title="utils.Signature.ittl" href="#utils.Signature.ittl">ittl</a></code></li>
+<li><code><a title="utils.Signature.mss" href="#utils.Signature.mss">mss</a></code></li>
+<li><code><a title="utils.Signature.olayout" href="#utils.Signature.olayout">olayout</a></code></li>
+<li><code><a title="utils.Signature.olen" href="#utils.Signature.olen">olen</a></code></li>
+<li><code><a title="utils.Signature.pclass" href="#utils.Signature.pclass">pclass</a></code></li>
+<li><code><a title="utils.Signature.process_options" href="#utils.Signature.process_options">process_options</a></code></li>
+<li><code><a title="utils.Signature.qstring" href="#utils.Signature.qstring">qstring</a></code></li>
+<li><code><a title="utils.Signature.quirk" href="#utils.Signature.quirk">quirk</a></code></li>
+<li><code><a title="utils.Signature.scale" href="#utils.Signature.scale">scale</a></code></li>
+<li><code><a title="utils.Signature.version" href="#utils.Signature.version">version</a></code></li>
+<li><code><a title="utils.Signature.window_size" href="#utils.Signature.window_size">window_size</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="utils.TcpSig" href="#utils.TcpSig">TcpSig</a></code></h4>
+<ul class="">
+<li><code><a title="utils.TcpSig.qstring" href="#utils.TcpSig.qstring">qstring</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

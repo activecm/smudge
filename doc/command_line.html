@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>command_line API documentation</title>
+<meta name="description" content="Command Line Utils" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>command_line</code></h1>
+</header>
+<section id="section-intro">
+<p>Command Line Utils</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+Command Line Utils
+&#34;&#34;&#34;
+import sys
+import os
+import time
+from scapy.interfaces import get_if_list
+from scapy.all import sniff
+from smudge.utils import PassiveData
+from smudge.utils import Signature
+from smudge.utils import PullData
+from smudge.utils import TcpSig
+from smudge.utils import Matching
+
+try:
+    from colorama import Fore
+    from colorama import Style
+except ImportError:
+    print(&#34;Color text is not available on this platform.&#34;)
+
+
+class CommandLineUtility():
+    &#34;&#34;&#34;
+    The utility methods needed for the command line tool reside here.
+    &#34;&#34;&#34;
+
+    @staticmethod
+    def cprint(out):
+        &#39;&#39;&#39;If enabled, prints main colored output.&#39;&#39;&#39;
+        if &#34;colorama&#34; in sys.modules:
+            print(Fore.CYAN + out)
+            print(Style.RESET_ALL)
+        else:
+            print(out)
+        return True
+
+    @staticmethod
+    def mprint(out):
+        &#39;&#39;&#39;If enabled, prints secondary colored output.&#39;&#39;&#39;
+        if &#34;colorama&#34; in sys.modules:
+            print(Fore.MAGENTA + out)
+            print(Style.RESET_ALL)
+        else:
+            print(out)
+        return True
+
+    @staticmethod
+    def calculate_dist(time_to_live):
+        &#39;&#39;&#39;Takes a value of TTL and calculates hop distance.&#39;&#39;&#39;
+        try:
+            if time_to_live &gt; 128:
+                dist = 255 - time_to_live
+            elif 64 &lt; time_to_live &lt; 129:
+                dist = 128 - time_to_live
+            elif 32 &lt; time_to_live &lt; 65:
+                dist = 64 - time_to_live
+            elif 0 &lt; time_to_live &lt; 33:
+                dist = 32 - time_to_live
+            else:
+                dist = -1
+        except TypeError:
+            dist = -1
+        except ValueError:
+            dist = -1
+        return dist
+
+    @staticmethod
+    def verify_pause(flo):
+        &#39;&#39;&#39;Verify pause argument is between 0 and 1.&#39;&#39;&#39;
+        try:
+            flo = float(flo)
+        except ValueError:
+            print(&#34;Pause argument must be a decimal value between 0 and 1.&#34;)
+            print(&#34;Ignoring flag and applying default of 0.&#34;)
+            flo = 0
+        except TypeError:
+            flo = 0.1
+        return flo
+
+    @staticmethod
+    def verify_interface(interface):
+        &#39;&#39;&#39;Verify interface argument is valid.&#39;&#39;&#39;
+        interfaces = get_if_list()
+        if interface not in interfaces:
+            interface = &#39;&#39;
+        return interface
+
+    @staticmethod
+    def list_interfaces(argument):
+        &#39;&#39;&#39;List all available Network Interfaces.&#39;&#39;&#39;
+        if argument:
+            interfaces = get_if_list()
+            print(&#34;Available Interfaces: &#34;)
+            for i in interfaces:
+                print(&#34;\t&#34; + i)
+            sys.exit(0)
+        else:
+            return True
+
+    @staticmethod
+    def import_signatures(argument):
+        &#39;&#39;&#39;Import Signatures from Github&#39;&#39;&#39;
+        # Get Signatures from Github
+        if not argument:
+            if PassiveData.test_github_con():
+                signature_list = PullData.import_data()
+            # Create Sqlite DB for Smudge Signatures
+            PassiveData.setup_db()
+            # Create DB  Connection
+            conn = PassiveData.create_con()
+            # Iterate over JSON Objects
+            for i in signature_list[&#39;signature_list&#39;]:
+                try:
+                    smud = TcpSig(i)
+                    PassiveData.signature_insert(conn, smud)
+                except TypeError as except_value:
+                    print(except_value)
+                except ValueError as except_value:
+                    print(except_value)
+        return True
+
+    @staticmethod
+    def verify_signatures():
+        &#39;&#39;&#39;Verifies that signature db file exists.&#39;&#39;&#39;
+        exists = os.path.exists(&#39;signature.db&#39;)
+        return exists
+
+    @staticmethod
+    def read_pcap(args):
+        &#39;&#39;&#39;Read packet capture from file and SMUDGE.&#39;&#39;&#39;
+        # Verify Pause
+        pause = CommandLineUtility.verify_pause(args[&#39;pause&#39;])
+        print(&#34;--- SMUDGE an Open Source Project by Active Countermeasures ---&#34;)
+        print(&#34;\n[+] Reading Packets from PCAP file: &#34; + str(args[&#39;read&#39;]))
+        print(&#34;[+] Pause between signature matches: &#34; + str(pause))
+        print(&#34;[+] Entering main event loop.\n&#34;)
+        packets = sniff(offline=args[&#39;read&#39;], filter=&#39;tcp[tcpflags] == tcp-syn&#39;)
+        for packet in packets:
+            time.sleep(pause)
+            try:
+                packet_signature = Signature(packet)
+                match_object = Matching.match(packet_signature)
+                try:
+                    operating_system = match_object[1][0][2]
+                    certainty = match_object[0]
+                except TypeError:
+                    operating_system = &#34;No signature match on file.&#34;
+                    certainty = &#34;&#34;
+                except ValueError:
+                    operating_system = &#34;No signature match on file.&#34;
+                    certainty = &#34;&#34;
+                seg_1 = str(packet[&#39;IP&#39;].src)
+                seg_2 = str(packet[&#39;IP&#39;].sport)
+                seg_3 = str(packet[&#39;IP&#39;].dst)
+                seg_4 = str(packet[&#39;IP&#39;].dport)
+                seg_5 = str(CommandLineUtility.calculate_dist(packet[&#39;IP&#39;].ttl))
+                segway =  seg_1 + &#34;/&#34;  + seg_2 + &#34; -&gt; &#34; + seg_3 + &#34;/&#34; + seg_4
+                CommandLineUtility.cprint(&#34;\n\n.-[ &#34; +  segway + &#34; ]-&#34;)
+                CommandLineUtility.mprint(&#34;|&#34;)
+                CommandLineUtility.mprint(&#34;| client = &#34; + seg_1 + &#34;/&#34;  + seg_2)
+                CommandLineUtility.mprint(&#34;| os = &#34; + operating_system)
+                CommandLineUtility.mprint(&#34;| certainty = &#34; + certainty)
+                CommandLineUtility.mprint(&#34;| dist = &#34; + seg_5)
+                CommandLineUtility.mprint(&#34;| raw_sig = &#34; + str(packet_signature))
+                CommandLineUtility.mprint(&#34;|&#34;)
+                CommandLineUtility.mprint(&#34;`----&#34;)
+            except ValueError:
+                pass
+            except TypeError:
+                pass
+        return True
+
+    @staticmethod
+    def handle_packet(packet):
+        &#39;&#39;&#39;Read packet capture from file and SMUDGE.&#39;&#39;&#39;
+        if packet.haslayer(&#34;TCP&#34;):
+            if &#39;S&#39; in str(packet[&#39;TCP&#39;].flags):
+                try:
+                    packet_signature = Signature(packet)
+                    match_object = Matching.match(packet_signature)
+                    try:
+                        operating_system = match_object[1][0][2]
+                        certainty = match_object[0]
+                    except ValueError:
+                        operating_system = &#34;No signature match on file.&#34;
+                        certainty = &#34;&#34;
+                    except TypeError:
+                        operating_system = &#34;No signature match on file.&#34;
+                        certainty = &#34;&#34;
+                    seg_1 = str(packet[&#39;IP&#39;].src)
+                    seg_2 = str(packet[&#39;IP&#39;].sport)
+                    seg_3 = str(packet[&#39;IP&#39;].dst)
+                    seg_4 = str(packet[&#39;IP&#39;].dport)
+                    seg_5 = str(CommandLineUtility.calculate_dist(packet[&#39;IP&#39;].ttl))
+                    segway = seg_1 + &#34;/&#34;  + seg_2 + &#34; -&gt; &#34; + seg_3 + &#34;/&#34; + seg_4
+                    CommandLineUtility.cprint(&#34;\n\n.-[ &#34; +  segway + &#34; ]-&#34;)
+                    CommandLineUtility.mprint(&#34;|&#34;)
+                    CommandLineUtility.mprint(&#34;| client = &#34; + seg_1 + &#34;/&#34;  + seg_2)
+                    CommandLineUtility.mprint(&#34;| os = &#34; + operating_system)
+                    CommandLineUtility.mprint(&#34;| certainty = &#34; + certainty)
+                    CommandLineUtility.mprint(&#34;| dist = &#34; + seg_5)
+                    CommandLineUtility.mprint(&#34;| raw_sig = &#34; + str(packet_signature))
+                    CommandLineUtility.mprint(&#34;|&#34;)
+                    CommandLineUtility.mprint(&#34;`----&#34;)
+                except ValueError:
+                    CommandLineUtility.cprint(&#34;No signature match on file.&#34;)
+                    print(&#34;raw_sig = &#34; + str(packet_signature))
+                except TypeError:
+                    CommandLineUtility.cprint(&#34;No signature match on file.&#34;)
+                    print(&#34;raw_sig = &#34; + str(packet_signature))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="command_line.CommandLineUtility"><code class="flex name class">
+<span>class <span class="ident">CommandLineUtility</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>The utility methods needed for the command line tool reside here.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CommandLineUtility():
+    &#34;&#34;&#34;
+    The utility methods needed for the command line tool reside here.
+    &#34;&#34;&#34;
+
+    @staticmethod
+    def cprint(out):
+        &#39;&#39;&#39;If enabled, prints main colored output.&#39;&#39;&#39;
+        if &#34;colorama&#34; in sys.modules:
+            print(Fore.CYAN + out)
+            print(Style.RESET_ALL)
+        else:
+            print(out)
+        return True
+
+    @staticmethod
+    def mprint(out):
+        &#39;&#39;&#39;If enabled, prints secondary colored output.&#39;&#39;&#39;
+        if &#34;colorama&#34; in sys.modules:
+            print(Fore.MAGENTA + out)
+            print(Style.RESET_ALL)
+        else:
+            print(out)
+        return True
+
+    @staticmethod
+    def calculate_dist(time_to_live):
+        &#39;&#39;&#39;Takes a value of TTL and calculates hop distance.&#39;&#39;&#39;
+        try:
+            if time_to_live &gt; 128:
+                dist = 255 - time_to_live
+            elif 64 &lt; time_to_live &lt; 129:
+                dist = 128 - time_to_live
+            elif 32 &lt; time_to_live &lt; 65:
+                dist = 64 - time_to_live
+            elif 0 &lt; time_to_live &lt; 33:
+                dist = 32 - time_to_live
+            else:
+                dist = -1
+        except TypeError:
+            dist = -1
+        except ValueError:
+            dist = -1
+        return dist
+
+    @staticmethod
+    def verify_pause(flo):
+        &#39;&#39;&#39;Verify pause argument is between 0 and 1.&#39;&#39;&#39;
+        try:
+            flo = float(flo)
+        except ValueError:
+            print(&#34;Pause argument must be a decimal value between 0 and 1.&#34;)
+            print(&#34;Ignoring flag and applying default of 0.&#34;)
+            flo = 0
+        except TypeError:
+            flo = 0.1
+        return flo
+
+    @staticmethod
+    def verify_interface(interface):
+        &#39;&#39;&#39;Verify interface argument is valid.&#39;&#39;&#39;
+        interfaces = get_if_list()
+        if interface not in interfaces:
+            interface = &#39;&#39;
+        return interface
+
+    @staticmethod
+    def list_interfaces(argument):
+        &#39;&#39;&#39;List all available Network Interfaces.&#39;&#39;&#39;
+        if argument:
+            interfaces = get_if_list()
+            print(&#34;Available Interfaces: &#34;)
+            for i in interfaces:
+                print(&#34;\t&#34; + i)
+            sys.exit(0)
+        else:
+            return True
+
+    @staticmethod
+    def import_signatures(argument):
+        &#39;&#39;&#39;Import Signatures from Github&#39;&#39;&#39;
+        # Get Signatures from Github
+        if not argument:
+            if PassiveData.test_github_con():
+                signature_list = PullData.import_data()
+            # Create Sqlite DB for Smudge Signatures
+            PassiveData.setup_db()
+            # Create DB  Connection
+            conn = PassiveData.create_con()
+            # Iterate over JSON Objects
+            for i in signature_list[&#39;signature_list&#39;]:
+                try:
+                    smud = TcpSig(i)
+                    PassiveData.signature_insert(conn, smud)
+                except TypeError as except_value:
+                    print(except_value)
+                except ValueError as except_value:
+                    print(except_value)
+        return True
+
+    @staticmethod
+    def verify_signatures():
+        &#39;&#39;&#39;Verifies that signature db file exists.&#39;&#39;&#39;
+        exists = os.path.exists(&#39;signature.db&#39;)
+        return exists
+
+    @staticmethod
+    def read_pcap(args):
+        &#39;&#39;&#39;Read packet capture from file and SMUDGE.&#39;&#39;&#39;
+        # Verify Pause
+        pause = CommandLineUtility.verify_pause(args[&#39;pause&#39;])
+        print(&#34;--- SMUDGE an Open Source Project by Active Countermeasures ---&#34;)
+        print(&#34;\n[+] Reading Packets from PCAP file: &#34; + str(args[&#39;read&#39;]))
+        print(&#34;[+] Pause between signature matches: &#34; + str(pause))
+        print(&#34;[+] Entering main event loop.\n&#34;)
+        packets = sniff(offline=args[&#39;read&#39;], filter=&#39;tcp[tcpflags] == tcp-syn&#39;)
+        for packet in packets:
+            time.sleep(pause)
+            try:
+                packet_signature = Signature(packet)
+                match_object = Matching.match(packet_signature)
+                try:
+                    operating_system = match_object[1][0][2]
+                    certainty = match_object[0]
+                except TypeError:
+                    operating_system = &#34;No signature match on file.&#34;
+                    certainty = &#34;&#34;
+                except ValueError:
+                    operating_system = &#34;No signature match on file.&#34;
+                    certainty = &#34;&#34;
+                seg_1 = str(packet[&#39;IP&#39;].src)
+                seg_2 = str(packet[&#39;IP&#39;].sport)
+                seg_3 = str(packet[&#39;IP&#39;].dst)
+                seg_4 = str(packet[&#39;IP&#39;].dport)
+                seg_5 = str(CommandLineUtility.calculate_dist(packet[&#39;IP&#39;].ttl))
+                segway =  seg_1 + &#34;/&#34;  + seg_2 + &#34; -&gt; &#34; + seg_3 + &#34;/&#34; + seg_4
+                CommandLineUtility.cprint(&#34;\n\n.-[ &#34; +  segway + &#34; ]-&#34;)
+                CommandLineUtility.mprint(&#34;|&#34;)
+                CommandLineUtility.mprint(&#34;| client = &#34; + seg_1 + &#34;/&#34;  + seg_2)
+                CommandLineUtility.mprint(&#34;| os = &#34; + operating_system)
+                CommandLineUtility.mprint(&#34;| certainty = &#34; + certainty)
+                CommandLineUtility.mprint(&#34;| dist = &#34; + seg_5)
+                CommandLineUtility.mprint(&#34;| raw_sig = &#34; + str(packet_signature))
+                CommandLineUtility.mprint(&#34;|&#34;)
+                CommandLineUtility.mprint(&#34;`----&#34;)
+            except ValueError:
+                pass
+            except TypeError:
+                pass
+        return True
+
+    @staticmethod
+    def handle_packet(packet):
+        &#39;&#39;&#39;Read packet capture from file and SMUDGE.&#39;&#39;&#39;
+        if packet.haslayer(&#34;TCP&#34;):
+            if &#39;S&#39; in str(packet[&#39;TCP&#39;].flags):
+                try:
+                    packet_signature = Signature(packet)
+                    match_object = Matching.match(packet_signature)
+                    try:
+                        operating_system = match_object[1][0][2]
+                        certainty = match_object[0]
+                    except ValueError:
+                        operating_system = &#34;No signature match on file.&#34;
+                        certainty = &#34;&#34;
+                    except TypeError:
+                        operating_system = &#34;No signature match on file.&#34;
+                        certainty = &#34;&#34;
+                    seg_1 = str(packet[&#39;IP&#39;].src)
+                    seg_2 = str(packet[&#39;IP&#39;].sport)
+                    seg_3 = str(packet[&#39;IP&#39;].dst)
+                    seg_4 = str(packet[&#39;IP&#39;].dport)
+                    seg_5 = str(CommandLineUtility.calculate_dist(packet[&#39;IP&#39;].ttl))
+                    segway = seg_1 + &#34;/&#34;  + seg_2 + &#34; -&gt; &#34; + seg_3 + &#34;/&#34; + seg_4
+                    CommandLineUtility.cprint(&#34;\n\n.-[ &#34; +  segway + &#34; ]-&#34;)
+                    CommandLineUtility.mprint(&#34;|&#34;)
+                    CommandLineUtility.mprint(&#34;| client = &#34; + seg_1 + &#34;/&#34;  + seg_2)
+                    CommandLineUtility.mprint(&#34;| os = &#34; + operating_system)
+                    CommandLineUtility.mprint(&#34;| certainty = &#34; + certainty)
+                    CommandLineUtility.mprint(&#34;| dist = &#34; + seg_5)
+                    CommandLineUtility.mprint(&#34;| raw_sig = &#34; + str(packet_signature))
+                    CommandLineUtility.mprint(&#34;|&#34;)
+                    CommandLineUtility.mprint(&#34;`----&#34;)
+                except ValueError:
+                    CommandLineUtility.cprint(&#34;No signature match on file.&#34;)
+                    print(&#34;raw_sig = &#34; + str(packet_signature))
+                except TypeError:
+                    CommandLineUtility.cprint(&#34;No signature match on file.&#34;)
+                    print(&#34;raw_sig = &#34; + str(packet_signature))</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="command_line.CommandLineUtility.calculate_dist"><code class="name flex">
+<span>def <span class="ident">calculate_dist</span></span>(<span>time_to_live)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Takes a value of TTL and calculates hop distance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def calculate_dist(time_to_live):
+    &#39;&#39;&#39;Takes a value of TTL and calculates hop distance.&#39;&#39;&#39;
+    try:
+        if time_to_live &gt; 128:
+            dist = 255 - time_to_live
+        elif 64 &lt; time_to_live &lt; 129:
+            dist = 128 - time_to_live
+        elif 32 &lt; time_to_live &lt; 65:
+            dist = 64 - time_to_live
+        elif 0 &lt; time_to_live &lt; 33:
+            dist = 32 - time_to_live
+        else:
+            dist = -1
+    except TypeError:
+        dist = -1
+    except ValueError:
+        dist = -1
+    return dist</code></pre>
+</details>
+</dd>
+<dt id="command_line.CommandLineUtility.cprint"><code class="name flex">
+<span>def <span class="ident">cprint</span></span>(<span>out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>If enabled, prints main colored output.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def cprint(out):
+    &#39;&#39;&#39;If enabled, prints main colored output.&#39;&#39;&#39;
+    if &#34;colorama&#34; in sys.modules:
+        print(Fore.CYAN + out)
+        print(Style.RESET_ALL)
+    else:
+        print(out)
+    return True</code></pre>
+</details>
+</dd>
+<dt id="command_line.CommandLineUtility.handle_packet"><code class="name flex">
+<span>def <span class="ident">handle_packet</span></span>(<span>packet)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Read packet capture from file and SMUDGE.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def handle_packet(packet):
+    &#39;&#39;&#39;Read packet capture from file and SMUDGE.&#39;&#39;&#39;
+    if packet.haslayer(&#34;TCP&#34;):
+        if &#39;S&#39; in str(packet[&#39;TCP&#39;].flags):
+            try:
+                packet_signature = Signature(packet)
+                match_object = Matching.match(packet_signature)
+                try:
+                    operating_system = match_object[1][0][2]
+                    certainty = match_object[0]
+                except ValueError:
+                    operating_system = &#34;No signature match on file.&#34;
+                    certainty = &#34;&#34;
+                except TypeError:
+                    operating_system = &#34;No signature match on file.&#34;
+                    certainty = &#34;&#34;
+                seg_1 = str(packet[&#39;IP&#39;].src)
+                seg_2 = str(packet[&#39;IP&#39;].sport)
+                seg_3 = str(packet[&#39;IP&#39;].dst)
+                seg_4 = str(packet[&#39;IP&#39;].dport)
+                seg_5 = str(CommandLineUtility.calculate_dist(packet[&#39;IP&#39;].ttl))
+                segway = seg_1 + &#34;/&#34;  + seg_2 + &#34; -&gt; &#34; + seg_3 + &#34;/&#34; + seg_4
+                CommandLineUtility.cprint(&#34;\n\n.-[ &#34; +  segway + &#34; ]-&#34;)
+                CommandLineUtility.mprint(&#34;|&#34;)
+                CommandLineUtility.mprint(&#34;| client = &#34; + seg_1 + &#34;/&#34;  + seg_2)
+                CommandLineUtility.mprint(&#34;| os = &#34; + operating_system)
+                CommandLineUtility.mprint(&#34;| certainty = &#34; + certainty)
+                CommandLineUtility.mprint(&#34;| dist = &#34; + seg_5)
+                CommandLineUtility.mprint(&#34;| raw_sig = &#34; + str(packet_signature))
+                CommandLineUtility.mprint(&#34;|&#34;)
+                CommandLineUtility.mprint(&#34;`----&#34;)
+            except ValueError:
+                CommandLineUtility.cprint(&#34;No signature match on file.&#34;)
+                print(&#34;raw_sig = &#34; + str(packet_signature))
+            except TypeError:
+                CommandLineUtility.cprint(&#34;No signature match on file.&#34;)
+                print(&#34;raw_sig = &#34; + str(packet_signature))</code></pre>
+</details>
+</dd>
+<dt id="command_line.CommandLineUtility.import_signatures"><code class="name flex">
+<span>def <span class="ident">import_signatures</span></span>(<span>argument)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Import Signatures from Github</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def import_signatures(argument):
+    &#39;&#39;&#39;Import Signatures from Github&#39;&#39;&#39;
+    # Get Signatures from Github
+    if not argument:
+        if PassiveData.test_github_con():
+            signature_list = PullData.import_data()
+        # Create Sqlite DB for Smudge Signatures
+        PassiveData.setup_db()
+        # Create DB  Connection
+        conn = PassiveData.create_con()
+        # Iterate over JSON Objects
+        for i in signature_list[&#39;signature_list&#39;]:
+            try:
+                smud = TcpSig(i)
+                PassiveData.signature_insert(conn, smud)
+            except TypeError as except_value:
+                print(except_value)
+            except ValueError as except_value:
+                print(except_value)
+    return True</code></pre>
+</details>
+</dd>
+<dt id="command_line.CommandLineUtility.list_interfaces"><code class="name flex">
+<span>def <span class="ident">list_interfaces</span></span>(<span>argument)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>List all available Network Interfaces.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def list_interfaces(argument):
+    &#39;&#39;&#39;List all available Network Interfaces.&#39;&#39;&#39;
+    if argument:
+        interfaces = get_if_list()
+        print(&#34;Available Interfaces: &#34;)
+        for i in interfaces:
+            print(&#34;\t&#34; + i)
+        sys.exit(0)
+    else:
+        return True</code></pre>
+</details>
+</dd>
+<dt id="command_line.CommandLineUtility.mprint"><code class="name flex">
+<span>def <span class="ident">mprint</span></span>(<span>out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>If enabled, prints secondary colored output.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def mprint(out):
+    &#39;&#39;&#39;If enabled, prints secondary colored output.&#39;&#39;&#39;
+    if &#34;colorama&#34; in sys.modules:
+        print(Fore.MAGENTA + out)
+        print(Style.RESET_ALL)
+    else:
+        print(out)
+    return True</code></pre>
+</details>
+</dd>
+<dt id="command_line.CommandLineUtility.read_pcap"><code class="name flex">
+<span>def <span class="ident">read_pcap</span></span>(<span>args)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Read packet capture from file and SMUDGE.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def read_pcap(args):
+    &#39;&#39;&#39;Read packet capture from file and SMUDGE.&#39;&#39;&#39;
+    # Verify Pause
+    pause = CommandLineUtility.verify_pause(args[&#39;pause&#39;])
+    print(&#34;--- SMUDGE an Open Source Project by Active Countermeasures ---&#34;)
+    print(&#34;\n[+] Reading Packets from PCAP file: &#34; + str(args[&#39;read&#39;]))
+    print(&#34;[+] Pause between signature matches: &#34; + str(pause))
+    print(&#34;[+] Entering main event loop.\n&#34;)
+    packets = sniff(offline=args[&#39;read&#39;], filter=&#39;tcp[tcpflags] == tcp-syn&#39;)
+    for packet in packets:
+        time.sleep(pause)
+        try:
+            packet_signature = Signature(packet)
+            match_object = Matching.match(packet_signature)
+            try:
+                operating_system = match_object[1][0][2]
+                certainty = match_object[0]
+            except TypeError:
+                operating_system = &#34;No signature match on file.&#34;
+                certainty = &#34;&#34;
+            except ValueError:
+                operating_system = &#34;No signature match on file.&#34;
+                certainty = &#34;&#34;
+            seg_1 = str(packet[&#39;IP&#39;].src)
+            seg_2 = str(packet[&#39;IP&#39;].sport)
+            seg_3 = str(packet[&#39;IP&#39;].dst)
+            seg_4 = str(packet[&#39;IP&#39;].dport)
+            seg_5 = str(CommandLineUtility.calculate_dist(packet[&#39;IP&#39;].ttl))
+            segway =  seg_1 + &#34;/&#34;  + seg_2 + &#34; -&gt; &#34; + seg_3 + &#34;/&#34; + seg_4
+            CommandLineUtility.cprint(&#34;\n\n.-[ &#34; +  segway + &#34; ]-&#34;)
+            CommandLineUtility.mprint(&#34;|&#34;)
+            CommandLineUtility.mprint(&#34;| client = &#34; + seg_1 + &#34;/&#34;  + seg_2)
+            CommandLineUtility.mprint(&#34;| os = &#34; + operating_system)
+            CommandLineUtility.mprint(&#34;| certainty = &#34; + certainty)
+            CommandLineUtility.mprint(&#34;| dist = &#34; + seg_5)
+            CommandLineUtility.mprint(&#34;| raw_sig = &#34; + str(packet_signature))
+            CommandLineUtility.mprint(&#34;|&#34;)
+            CommandLineUtility.mprint(&#34;`----&#34;)
+        except ValueError:
+            pass
+        except TypeError:
+            pass
+    return True</code></pre>
+</details>
+</dd>
+<dt id="command_line.CommandLineUtility.verify_interface"><code class="name flex">
+<span>def <span class="ident">verify_interface</span></span>(<span>interface)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Verify interface argument is valid.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def verify_interface(interface):
+    &#39;&#39;&#39;Verify interface argument is valid.&#39;&#39;&#39;
+    interfaces = get_if_list()
+    if interface not in interfaces:
+        interface = &#39;&#39;
+    return interface</code></pre>
+</details>
+</dd>
+<dt id="command_line.CommandLineUtility.verify_pause"><code class="name flex">
+<span>def <span class="ident">verify_pause</span></span>(<span>flo)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Verify pause argument is between 0 and 1.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def verify_pause(flo):
+    &#39;&#39;&#39;Verify pause argument is between 0 and 1.&#39;&#39;&#39;
+    try:
+        flo = float(flo)
+    except ValueError:
+        print(&#34;Pause argument must be a decimal value between 0 and 1.&#34;)
+        print(&#34;Ignoring flag and applying default of 0.&#34;)
+        flo = 0
+    except TypeError:
+        flo = 0.1
+    return flo</code></pre>
+</details>
+</dd>
+<dt id="command_line.CommandLineUtility.verify_signatures"><code class="name flex">
+<span>def <span class="ident">verify_signatures</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Verifies that signature db file exists.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def verify_signatures():
+    &#39;&#39;&#39;Verifies that signature db file exists.&#39;&#39;&#39;
+    exists = os.path.exists(&#39;signature.db&#39;)
+    return exists</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="command_line.CommandLineUtility" href="#command_line.CommandLineUtility">CommandLineUtility</a></code></h4>
+<ul class="two-column">
+<li><code><a title="command_line.CommandLineUtility.calculate_dist" href="#command_line.CommandLineUtility.calculate_dist">calculate_dist</a></code></li>
+<li><code><a title="command_line.CommandLineUtility.cprint" href="#command_line.CommandLineUtility.cprint">cprint</a></code></li>
+<li><code><a title="command_line.CommandLineUtility.handle_packet" href="#command_line.CommandLineUtility.handle_packet">handle_packet</a></code></li>
+<li><code><a title="command_line.CommandLineUtility.import_signatures" href="#command_line.CommandLineUtility.import_signatures">import_signatures</a></code></li>
+<li><code><a title="command_line.CommandLineUtility.list_interfaces" href="#command_line.CommandLineUtility.list_interfaces">list_interfaces</a></code></li>
+<li><code><a title="command_line.CommandLineUtility.mprint" href="#command_line.CommandLineUtility.mprint">mprint</a></code></li>
+<li><code><a title="command_line.CommandLineUtility.read_pcap" href="#command_line.CommandLineUtility.read_pcap">read_pcap</a></code></li>
+<li><code><a title="command_line.CommandLineUtility.verify_interface" href="#command_line.CommandLineUtility.verify_interface">verify_interface</a></code></li>
+<li><code><a title="command_line.CommandLineUtility.verify_pause" href="#command_line.CommandLineUtility.verify_pause">verify_pause</a></code></li>
+<li><code><a title="command_line.CommandLineUtility.verify_signatures" href="#command_line.CommandLineUtility.verify_signatures">verify_signatures</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
