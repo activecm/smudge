@@ -9,6 +9,7 @@
 
 from os.path import exists
 import sqlite3
+import netifaces
 
 from smudge.utils import PassiveData
 from smudge.utils import PullData
