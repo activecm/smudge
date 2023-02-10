@@ -19,6 +19,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install scapy
         pip install pylint
+        pip install netifaces
     - name: Analysing the code with pylint
       run: |
         pylint --disable=w0511 $(git ls-files '*.py')
