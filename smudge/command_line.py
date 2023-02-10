@@ -4,7 +4,7 @@ Command Line Utils
 import sys
 import os
 import time
-from scapy.interfaces import get_if_list
+import netifaces
 from scapy.all import sniff
 from smudge.utils import PassiveData
 from smudge.utils import Signature
@@ -80,7 +80,7 @@ class CommandLineUtility():
     @staticmethod
     def verify_interface(interface):
         '''Verify interface argument is valid.'''
-        interfaces = get_if_list()
+        interfaces = netifaces.interfaces()
         if interface not in interfaces:
             interface = ''
         return interface
@@ -89,7 +89,7 @@ class CommandLineUtility():
     def list_interfaces(argument):
         '''List all available Network Interfaces.'''
         if argument:
-            interfaces = get_if_list()
+            interfaces = netifaces.interfaces()
             print("Available Interfaces: ")
             for i in interfaces:
                 print("\t" + i)

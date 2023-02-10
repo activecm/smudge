@@ -25,8 +25,9 @@ setup(
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"
     ],
     install_requires=[
-        "scapy ~= 2.4.5",
-        "colorama ~= 0.4.3"
+        "scapy ~= 2.4.0",
+        "colorama ~= 0.4.3",
+        "netifaces ~= 0.10.4"
     ],
     extras_require = {
         "dev": [
